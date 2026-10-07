@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#04102e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SNOWISE">
+<meta name="description" content="숙명여대 학생성장 통합시스템 SNOWISE 안내 — 한입 사용법, 포트폴리오 작성, 행복성장주간, 뉴스레터, 유튜브">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<title>SNOWISE | 숙명여대 학생성장 통합시스템</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"SMU Snowflake";font-weight:400;font-display:swap;src:url(assets/font/SMU-Snowflake-400.woff2) format("woff2")}
+@font-face{font-family:"SMU Snowflake";font-weight:700;font-display:swap;src:url(assets/font/SMU-Snowflake-700.woff2) format("woff2")}
+
+:root{
+  --night:#04102e; --night2:#0a1d4f; --panel:rgba(9,24,66,.88); --side:rgba(6,17,48,.9);
+  --ice:#e6efff; --sky:#8fd3ff; --frost:#b9d4ff; --royal:#2f63e0; --line:rgba(185,212,255,.16);
+  --text:#eef3ff; --sub:#9fb2dc; --dim:#7086b8; --sprout:#8fdc7c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%}
+body{color:var(--text);font-family:"SMU Snowflake","Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:15px;line-height:1.7;word-break:keep-all;
+  background:radial-gradient(900px 600px at 84% 12%,rgba(143,211,255,.16),transparent 60%),
+             radial-gradient(1200px 700px at 50% 120%,#0d2a6e 0,transparent 60%),
+             linear-gradient(180deg,#030a22,#061640 60%,#0a1f55);
+  overflow:hidden}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--sky);outline-offset:2px;border-radius:8px}
+h1,h2,h3{margin:0;font-weight:700;line-height:1.3;letter-spacing:-.01em}
+
+/* 배경 장식 */
+.sky{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.sky i{position:absolute;top:-10px;border-radius:50%;background:#fff;animation:fall linear infinite}
+.sky b{position:absolute;color:#cfe3ff;font-weight:400;animation:tw 3s ease-in-out infinite}
+@keyframes fall{to{transform:translate(50px,105vh)}}
+@keyframes tw{50%{opacity:.25}}
+.moon{position:fixed;right:6%;top:-120px;width:360px;height:360px;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 40% 40%,#ffffff 0,#dcebff 40%,#9cc3f5 70%,rgba(143,211,255,0) 71%);opacity:.35;filter:blur(1px)}
+.crystal{position:fixed;left:-90px;bottom:-110px;width:420px;opacity:.08;z-index:0;pointer-events:none}
+.crystal.r{left:auto;right:-120px;bottom:auto;top:40%;width:340px;opacity:.06}
+
+/* 레이아웃 */
+.shell{position:relative;z-index:1;height:100vh;max-width:1580px;margin:0 auto;padding:16px 24px;display:grid;grid-template-columns:210px 1fr;gap:20px}
+
+/* 사이드바 */
+.side{background:var(--side);border-radius:22px;padding:30px 12px 20px;display:flex;flex-direction:column;box-shadow:inset 0 0 0 1px var(--line);backdrop-filter:blur(6px)}
+.brand{padding:0 10px 26px;text-decoration:none;display:block}
+.brand h1{font-size:27px;color:var(--ice);letter-spacing:.02em;line-height:1.1;
+  background:linear-gradient(180deg,#ffffff,#b9d4ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand .yr{display:block;margin-top:8px;font-size:12.5px;color:var(--frost);letter-spacing:.08em}
+.brand p{margin:12px 0 0;font-size:11.5px;color:var(--dim);line-height:1.7}
+.menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.menu a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;text-decoration:none;color:#c9d6f3;font-size:14px;transition:background .2s,color .2s}
+.menu a:hover{background:rgba(185,212,255,.08);color:#fff}
+.menu svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.menu a[aria-current="page"]{background:var(--ice);color:#0a1d4f;font-weight:700}
+.side .quote{margin-top:auto;display:flex;gap:10px;align-items:center;padding:0 8px;font-size:11px;color:var(--dim);line-height:1.6}
+.side .quote img{width:34px;height:34px;border-radius:50%;flex:none}
+
+/* 메인 */
+.main{display:grid;grid-template-rows:48px 1fr;gap:14px;min-width:0;min-height:0}
+.top{display:flex;align-items:center;gap:14px}
+.seg{display:inline-flex;background:var(--side);border-radius:14px;padding:4px;box-shadow:inset 0 0 0 1px var(--line)}
+.seg button{border:0;background:none;padding:7px 18px;border-radius:10px;font-size:13px;font-weight:700;color:#c9d6f3;cursor:pointer}
+.seg button[aria-selected="true"]{background:var(--ice);color:#0a1d4f}
+.crumb{font-size:13px;color:var(--sub);padding:0 4px}
+.crumb b{color:var(--ice)}
+.spark{color:var(--frost);font-size:14px;opacity:.8}
+.search{margin-left:auto;position:relative;width:min(420px,40%)}
+.search input{width:100%;background:var(--side);border:0;box-shadow:inset 0 0 0 1px var(--line);border-radius:14px;padding:11px 16px 11px 40px;font-size:13px}
+.search input::placeholder{color:var(--dim)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--sub);fill:none;stroke-width:2}
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#0b1f55;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.4),inset 0 0 0 1px var(--line);list-style:none;margin:0;padding:6px;z-index:5}
+.sugg a{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:10px;text-decoration:none;font-size:13px}
+.sugg a:hover,.sugg a.hi{background:rgba(185,212,255,.1)}
+.sugg small{color:var(--dim)}
+.login{background:var(--ice);color:#0a1d4f;text-decoration:none;font-weight:700;font-size:13px;padding:10px 16px;border-radius:12px;flex:none}
+
+.panel{position:relative;background:var(--panel);border-radius:24px;box-shadow:inset 0 0 0 1px var(--line),0 20px 60px rgba(0,0,0,.35);overflow:hidden;min-height:0}
+.view{display:none;height:100%;overflow-y:auto;padding:34px 40px 40px}
+.view.on{display:block;animation:fade .35s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.pane{display:none}.pane.on{display:block}
+.frame-t{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 0 26px}
+.frame-t h2{font-size:28px;color:var(--ice);text-align:center}
+.frame-t::before,.frame-t::after{content:"";height:1px;flex:1;max-width:220px;background:linear-gradient(90deg,transparent,var(--frost))}
+.frame-t::after{transform:scaleX(-1)}
+.frame-t .fl{color:var(--sky);font-size:18px}
+.lead{text-align:center;color:var(--sub);margin:-14px 0 28px;font-size:14px}
+
+/* 홈 */
+#v-home{padding:0;overflow:hidden}
+.home{position:relative;height:100%;display:grid;grid-template-columns:.8fr 1.2fr;align-items:start}
+.home::before{content:"";position:absolute;right:10%;top:18%;width:52%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(143,211,255,.35),rgba(143,211,255,.08) 60%,transparent)}
+.home .txt{position:relative;padding:36px 0 0 64px;align-self:start}
+.home small{font-size:12px;color:var(--frost);letter-spacing:.1em}
+.home h2{font-size:clamp(40px,3.6vw,64px);margin:10px 0 14px;letter-spacing:.02em;
+  background:linear-gradient(180deg,#fff,#b9d4ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.home h3{font-size:clamp(18px,1.4vw,24px);color:var(--ice);font-weight:700}
+.home p{color:var(--sub);font-size:14px;margin:12px 0 26px}
+.home .go{display:inline-flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:13px;border-radius:12px;padding:10px 18px;border:0;cursor:pointer}
+.btn.ice{background:var(--ice);color:#0a1d4f}
+.btn.line{box-shadow:inset 0 0 0 1px rgba(185,212,255,.4);color:var(--ice);background:transparent}
+.home .art{position:relative;align-self:end;display:flex;justify-content:center;padding-bottom:10px}
+.home .art img{width:100%;max-width:480px;max-height:calc(100vh - 320px);object-fit:contain;object-position:bottom;display:block;
+  filter:drop-shadow(0 24px 40px rgba(0,10,40,.6));animation:rise .8s .2s cubic-bezier(.2,1.2,.4,1) both}
+.home .bub{position:absolute;right:8%;top:6%;background:var(--ice);color:#0a1d4f;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:13px;line-height:1.5;
+  animation:pop .5s 1s cubic-bezier(.2,1.3,.4,1) both;z-index:2}
+@keyframes rise{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+
+/* 카드 공통 */
+.card{background:rgba(185,212,255,.05);box-shadow:inset 0 0 0 1px var(--line);border-radius:18px;padding:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.hex{width:48px;height:53px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);display:grid;place-items:center;background:var(--ice);margin-bottom:16px}
+.hex svg{width:22px;height:22px;stroke:#0a1d4f;fill:none;stroke-width:2}
+.card em{font-style:normal;font-size:11px;letter-spacing:.12em;color:var(--sky)}
+.card h3{font-size:19px;margin:2px 0 8px;color:var(--ice)}
+.card p{margin:0;color:var(--sub);font-size:14px}
+dl.gl{margin:0;max-width:880px;margin:0 auto}
+dl.gl div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 4px;border-bottom:1px solid var(--line)}
+dl.gl dt{color:var(--sky);font-weight:700;font-size:16px}
+dl.gl dd{margin:0;color:#d4def5}
+
+/* 사용법 */
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.steps li{counter-increment:s}
+.steps li::before{content:"STEP " counter(s);display:inline-block;font-size:11px;letter-spacing:.1em;color:#0a1d4f;background:var(--sky);border-radius:999px;padding:2px 10px;margin-bottom:12px;font-weight:700}
+.center{text-align:center;margin-top:26px}
+.ai{display:grid;grid-template-columns:260px 1fr;gap:24px;max-width:1000px;margin:0 auto}
+.chips{display:flex;flex-direction:column;gap:8px}
+.chips button{text-align:left;border:0;background:rgba(185,212,255,.05);box-shadow:inset 0 0 0 1px var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;font-weight:700;font-size:15px}
+.chips button span{display:block;font-weight:400;font-size:12px;color:var(--sub)}
+.chips button[aria-pressed="true"]{background:var(--ice);color:#0a1d4f}
+.chips button[aria-pressed="true"] span{color:#3b4f80}
+.phone{background:rgba(3,10,34,.6);box-shadow:inset 0 0 0 1px var(--line);border-radius:20px;padding:18px 20px;min-height:360px}
+.phone .hd{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.phone img,.msg img{width:34px;height:34px;border-radius:50%;flex:none}
+.msg{display:flex;gap:10px;margin:12px 0;align-items:flex-end}
+.msg .t{background:rgba(185,212,255,.1);border-radius:16px 16px 16px 4px;padding:10px 14px;max-width:80%;font-size:14px}
+.msg.me{justify-content:flex-end}
+.msg.me .t{background:var(--royal);border-radius:16px 16px 4px 16px}
+.msg.in{animation:pop .35s cubic-bezier(.2,1.3,.4,1) both}
+.draft{display:block;margin-top:8px;border-left:3px solid var(--sprout);padding:6px 10px;background:rgba(0,0,0,.2);border-radius:6px;font-size:13px}
+.note{font-size:12px;color:var(--dim);margin-top:10px}
+.faq{max-width:900px;margin:0 auto}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;padding:18px 40px 18px 4px;font-weight:700;font-size:16px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:8px;top:12px;font-size:24px;color:var(--sky);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+summary .tag{font-size:11px;color:#0a1d4f;background:var(--sky);border-radius:6px;padding:1px 8px;margin-right:10px;vertical-align:2px}
+.ans{padding:0 4px 18px;color:var(--sub);font-size:14px}
+.ans ol{margin:0;padding-left:20px}
+.who-t{font-size:12px;color:var(--dim);margin:0 0 4px 4px;letter-spacing:.1em}
+.faq+.faq{margin-top:30px}
+
+/* 뉴스레터 */
+.nl{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:1080px;margin:0 auto}
+.issue{border-radius:20px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line);background:rgba(185,212,255,.04)}
+.issue .cv{padding:24px 26px;background:linear-gradient(135deg,rgba(47,99,224,.55),rgba(143,211,255,.2))}
+.issue .cv small{color:var(--frost);letter-spacing:.06em}
+.issue .cv h3{font-size:22px;color:#fff;margin-top:4px}
+.issue ul{list-style:none;margin:0;padding:16px 26px}
+.issue li{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.issue li:last-child{border-bottom:0}
+.issue li b{color:var(--sky);font-size:12px;letter-spacing:.08em;padding-top:2px}
+.issue .ft{padding:0 26px 22px}
+.btn.off{opacity:.5;pointer-events:none}
+.nl-meta{text-align:center;color:var(--sub);font-size:13px;margin:-14px 0 26px}
+.nl-meta b{color:var(--ice)}
+
+/* 영상 */
+.player{position:relative;display:block;max-width:1100px;margin:0 auto;height:calc(100vh - 300px);min-height:360px;border-radius:22px;overflow:hidden;text-decoration:none;
+  background:radial-gradient(700px 420px at 72% 60%,#2e6ae0,#0a2a7a 60%,#061640);box-shadow:inset 0 0 0 1px var(--line)}
+.player img{position:absolute;right:3%;bottom:0;width:52%;height:92%;object-fit:contain;object-position:bottom right}
+.player .tx{position:absolute;left:6%;top:50%;transform:translateY(-50%)}
+.player small{color:var(--sky);letter-spacing:.12em;font-size:12px}
+.player h3{font-size:clamp(24px,2.2vw,38px);color:#fff;margin:6px 0 22px}
+.play{width:72px;height:72px;border-radius:50%;background:var(--ice);display:grid;place-items:center;transition:transform .2s}
+.play::after{content:"";margin-left:6px;border-left:22px solid #0a1d4f;border-top:13px solid transparent;border-bottom:13px solid transparent}
+.player:hover .play{transform:scale(1.08)}
+
+/* 릴스 */
+.reels{display:grid;grid-template-columns:repeat(4,minmax(0,200px));gap:18px;justify-content:center}
+.reel .fr{aspect-ratio:9/16;border-radius:18px;position:relative;overflow:hidden;padding:18px;display:flex;flex-direction:column;justify-content:flex-end;
+  background:linear-gradient(180deg,transparent 45%,rgba(3,10,34,.85)),var(--c);box-shadow:inset 0 0 0 1px var(--line)}
+.reel .len{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.35);border-radius:999px;padding:1px 10px;font-size:11px}
+.reel .fr img{position:absolute;top:14%;left:50%;transform:translateX(-50%);width:44%;border-radius:50%}
+.reel .fr img.wide{width:80%;border-radius:0}
+.reel .pl{width:40px;height:40px;border-radius:50%;background:var(--ice);display:grid;place-items:center;margin-bottom:10px}
+.reel .pl::after{content:"";margin-left:4px;border-left:13px solid #0a1d4f;border-top:8px solid transparent;border-bottom:8px solid transparent}
+.reel h3{font-size:16px;color:#fff}
+.reel p{margin:8px 2px 0;color:var(--sub);font-size:13px}
+
+
+/* 로드맵 */
+.road{position:relative;max-width:1080px;margin:0 auto}
+.road .path{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.road ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);row-gap:80px;position:relative;padding:30px 0 10px}
+.road li:nth-child(5){grid-column:4;grid-row:2}.road li:nth-child(6){grid-column:3;grid-row:2}
+.road li:nth-child(7){grid-column:2;grid-row:2}.road li:nth-child(8){grid-column:1;grid-row:2}
+.node{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:0 10px}
+.node .dot{width:70px;height:78px;border:0;cursor:pointer;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  background:var(--ice);color:#0a1d4f;font-weight:700;font-size:20px;display:grid;place-items:center;transition:transform .2s,background .2s}
+.node .dot:hover{transform:scale(1.1);background:var(--sky)}
+.node.goal .dot{background:var(--sky);font-size:24px}
+.node b{font-size:15.5px;color:var(--ice);line-height:1.4;max-width:170px}
+.node .ts{font-size:11.5px;color:var(--sky);opacity:.8}
+.road .path path{fill:none;stroke:rgba(185,212,255,.45);stroke-width:2;stroke-dasharray:6 8;animation:dash 30s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-400}}
+.mini{display:inline-block;margin-top:8px;color:var(--sky);font-size:13px;text-decoration:none;font-weight:700}
+.ans b{color:var(--ice)}
+/* 시연영상 */
+.player2{display:grid;grid-template-columns:auto 1fr;gap:40px;max-width:1000px;margin:0 auto;align-items:center}
+.phonef{padding:10px;border-radius:34px;background:#020818;box-shadow:inset 0 0 0 1px var(--line),0 20px 50px rgba(0,0,0,.5)}
+.phonef video{display:block;height:min(calc(100vh - 210px),760px);width:calc(min(calc(100vh - 210px),760px) * 9 / 16);min-height:420px;object-fit:cover;border-radius:26px;background:#000}
+.chap h3{font-size:24px;color:var(--ice)}
+.chap>p{color:var(--sub);font-size:13px;margin:4px 0 16px}
+.chap ol{list-style:none;margin:0 0 20px;padding:0;border-top:1px solid var(--line)}
+.chap li button{width:100%;display:flex;gap:16px;align-items:center;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:11px 6px;cursor:pointer;font-size:14px;color:#d4def5;transition:background .2s,padding .2s}
+.chap li button span{font-size:12px;color:var(--sky);min-width:34px}
+.chap li button:hover{background:rgba(185,212,255,.06);padding-left:12px}
+.chap li button.now{color:#fff;font-weight:700;background:rgba(185,212,255,.1)}
+.reel{text-decoration:none;color:inherit;display:block}
+.reel .fr img.cov{top:0;left:0;transform:none;width:100%;height:100%;object-fit:cover;border-radius:0}
+
+
+/* 안내 페이지 */
+.pg-h{margin:0 0 18px}
+.pg-h small{font-size:11px;letter-spacing:.22em;color:var(--sky)}
+.pg-h h2{font-size:30px;color:var(--ice)}
+.box{background:rgba(22,44,110,.55);box-shadow:inset 0 0 0 1px var(--line);border-radius:18px;padding:22px 24px;margin-bottom:16px}
+.bh{font-size:20px;color:var(--ice);display:flex;align-items:baseline;gap:10px;margin-bottom:12px}
+.bh em{font-style:normal;font-size:10.5px;letter-spacing:.18em;color:var(--sky)}
+.box p{margin:0 0 8px;font-size:14px;color:#cdd8f2}
+.hl{color:var(--sky)}
+.concept{display:grid;grid-template-columns:1fr 170px;gap:20px;align-items:center}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.sub{border-radius:14px;box-shadow:inset 0 0 0 1px var(--line);background:rgba(3,10,34,.3);padding:14px 16px}
+.sub small{font-size:10px;color:var(--sky);letter-spacing:.1em}
+.sub h4{margin:2px 0 4px;font-size:17px;color:var(--ice)}
+.sub h4 span{font-size:12px;color:var(--frost);letter-spacing:.1em;margin-left:4px}
+.sub p{font-size:12.5px;color:var(--sub);margin:0}
+.cart{text-align:center}
+.cart img{width:130px;height:130px;border-radius:50%;box-shadow:0 0 0 6px rgba(143,211,255,.15),0 0 40px rgba(143,211,255,.35)}
+.cart span{display:block;font-size:12px;color:var(--frost);margin-top:10px}
+.acc details{border-bottom:1px solid var(--line)}
+.acc details:last-child{border-bottom:0}
+.acc summary{padding:12px 36px 12px 0;font-size:14.5px}
+.acc summary::after{top:5px;font-size:20px}
+.acc .ans{padding:0 0 14px;font-size:13.5px}
+.acc .mini{margin:0 0 0 6px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box.sm .meta{font-size:12.5px;color:var(--sub);min-height:20px}
+.chipset{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chipset span,.chipset button{font-size:12.5px;border-radius:8px;padding:5px 10px;box-shadow:inset 0 0 0 1px rgba(185,212,255,.3);background:rgba(3,10,34,.3);border:0;color:#dfe8ff}
+.chipset button{cursor:pointer}
+.chipset button[aria-pressed="true"]{background:var(--ice);color:#0a1d4f}
+
+.hsteps{list-style:none;margin:0;padding:0;counter-reset:h;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hsteps li{counter-increment:h;border-radius:14px;box-shadow:inset 0 0 0 1px var(--line);background:rgba(3,10,34,.3);padding:14px 16px}
+.hsteps li::before{content:counter(h);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--sky);color:#0a1d4f;font-weight:700;font-size:13px;margin-bottom:8px}
+.hsteps b{display:block;font-size:14.5px;color:var(--ice)}
+.hsteps span{font-size:12.5px;color:var(--sub)}
+.blist{list-style:none;margin:4px 0 0;padding:0}
+.blist li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.blist li:last-child{border-bottom:0}
+.blist b{font-weight:700;color:#dfe8ff}
+.blist span{color:var(--sky);text-align:right}
+.blist .d{font-size:12px;background:rgba(143,211,255,.12);border-radius:6px;padding:1px 8px;white-space:nowrap}
+.blist .d.both{background:var(--ice);color:#0a1d4f;font-weight:700}
+
+.stages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;position:relative}
+.stages li{border-radius:16px;box-shadow:inset 0 0 0 1px var(--line);background:rgba(3,10,34,.3);padding:16px 18px;position:relative}
+.stages li:not(:last-child)::after{content:"";position:absolute;right:-11px;top:26px;width:10px;height:10px;border-top:2px solid var(--sky);border-right:2px solid var(--sky);transform:rotate(45deg);z-index:1}
+.stages li.key{background:linear-gradient(160deg,rgba(143,211,255,.22),rgba(3,10,34,.3));box-shadow:inset 0 0 0 1.5px var(--sky)}
+.stages li.pro{background:linear-gradient(160deg,rgba(242,140,60,.2),rgba(3,10,34,.3));box-shadow:inset 0 0 0 1px rgba(255,180,120,.45)}
+.stg{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.stg span{font-size:11px;letter-spacing:.14em;color:var(--sky);font-weight:700}
+.stg i{font-style:normal;font-size:11px;border-radius:999px;padding:1px 9px;background:rgba(185,212,255,.12);color:#dfe8ff}
+.key .stg i{background:var(--ice);color:#0a1d4f;font-weight:700}
+.pro .stg span{color:#ffb783}
+.pro .stg i{background:rgba(255,183,131,.2);color:#ffd2b0}
+.stages h4{margin:0 0 6px;font-size:16px;color:var(--ice);line-height:1.4}
+.stages p{font-size:13px;color:var(--sub);margin:0 0 10px}
+.stages p b{color:#ffd2b0}
+.how{display:flex;flex-wrap:wrap;gap:5px}
+.how span{font-size:11.5px;border-radius:6px;padding:2px 8px;box-shadow:inset 0 0 0 1px rgba(185,212,255,.3);color:#dfe8ff}
+.gift{display:flex;align-items:center;gap:8px;font-size:13px;color:#dfe8ff;background:rgba(3,10,34,.4);border-radius:10px;padding:6px 10px}
+.gift img{width:28px;height:28px;border-radius:50%}
+.gift b{color:var(--sky)}
+.teaser{margin-top:14px;display:flex;gap:12px;align-items:center;border-radius:12px;padding:10px 14px;background:rgba(242,140,60,.14);box-shadow:inset 0 0 0 1px rgba(255,180,120,.35);font-size:13px;color:#f3dcc9}
+.teaser>b{font-size:10.5px;letter-spacing:.16em;color:#ffb783;white-space:nowrap}
+.teaser span b{color:#ffd2b0}
+.posters{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.posters figure{margin:0;border-radius:18px;overflow:hidden;background:rgba(22,44,110,.55);box-shadow:inset 0 0 0 1px var(--line)}
+.posters img{display:block;width:100%;aspect-ratio:3/5;object-fit:cover;object-position:top}
+.posters figcaption{padding:12px 16px 16px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
+.posters figcaption b{color:var(--ice);font-size:15px}
+.posters figcaption small{grid-column:1/-1;font-size:12px;color:var(--sub);line-height:1.6}
+.posters .d{font-size:12px;background:rgba(143,211,255,.12);color:var(--sky);border-radius:6px;padding:1px 8px}
+.posters .d.both{background:var(--ice);color:#0a1d4f;font-weight:700}
+
+.qz{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start}
+.zoom{display:block;border:0;padding:0;background:none;cursor:zoom-in;border-radius:12px;overflow:hidden;width:100%}
+.zoom img{display:block;width:100%;transition:transform .3s}
+.zoom:hover img{transform:scale(1.04)}
+.qz .big{font-size:20px;font-weight:700;color:var(--ice);margin:0 0 4px}
+.goods{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.goods figure{margin:0}
+.goods img{aspect-ratio:1;object-fit:cover}
+.goods figcaption{padding:8px 2px 0;display:flex;flex-direction:column}
+.goods b{font-size:14px;color:var(--ice)}
+.goods span{font-size:12px;color:var(--sky)}
+#lb{border:0;padding:0;background:transparent;max-width:92vw;max-height:92vh}
+#lb::backdrop{background:rgba(2,8,24,.85)}
+#lb img{display:block;max-width:92vw;max-height:88vh;border-radius:14px}
+#lb button{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:0;background:var(--ice);color:#0a1d4f;font-weight:700;cursor:pointer}
+
+
+.giftbox .gwrap{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:center}
+.giftbox .qrthumb{margin:0}
+.giftbox .qrthumb img{aspect-ratio:auto;object-fit:contain}
+.giftbox .blist li{padding:12px 0;font-size:14.5px}
+
+.thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:1180px}
+.th{border-radius:20px;overflow:hidden;background:rgba(22,44,110,.55);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.th:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px var(--sky),0 16px 30px rgba(0,0,0,.3)}
+.th .zoom{border-radius:0;position:relative}
+.th .zoom img{aspect-ratio:1;object-fit:cover}
+.th .new{margin-left:6px;background:#5fd35a;color:#08260a;font-size:10px;font-weight:700;letter-spacing:.1em;border-radius:5px;padding:1px 7px;box-shadow:2px 2px 0 #08260a}
+.tt{padding:14px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.tt small{font-size:11px;letter-spacing:.14em;color:var(--sky)}
+.tt h3{font-size:17px;color:var(--ice)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.tags span{font-size:11.5px;border-radius:6px;padding:1px 8px;background:rgba(185,212,255,.1);color:#dfe8ff}
+.tt .btn{align-self:flex-start;margin-top:auto}
+.th.next{background:transparent;box-shadow:inset 0 0 0 1.5px rgba(185,212,255,.25);border:0}
+.th.next:hover{transform:none;box-shadow:inset 0 0 0 1.5px rgba(185,212,255,.25)}
+.th .ph{aspect-ratio:1;display:grid;place-content:center;text-align:center;
+  background:repeating-linear-gradient(45deg,rgba(185,212,255,.04) 0 12px,transparent 12px 24px)}
+.th .ph span{font-size:34px;font-weight:700;color:rgba(185,212,255,.35);letter-spacing:.06em}
+.th .ph p{margin:6px 0 0;color:var(--dim);font-size:13px}
+.th.next h3{color:var(--dim)}
+
+.ch-banner{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;padding:26px 28px;border-radius:20px;margin-bottom:26px;
+  background:linear-gradient(120deg,rgba(47,99,224,.55),rgba(143,211,255,.15)),rgba(22,44,110,.55);box-shadow:inset 0 0 0 1px var(--line)}
+.ch-av{width:96px;height:96px;border-radius:50%;box-shadow:0 0 0 4px rgba(255,255,255,.2)}
+.ch-banner small{font-size:11px;letter-spacing:.2em;color:#ff8a8a;font-weight:700}
+.ch-banner h2{font-size:26px;color:#fff}
+.ch-banner p{margin:4px 0 0;color:#cdd8f2;font-size:14px}
+.sub-btn{background:#fff;color:#0f0f0f;text-decoration:none;font-weight:700;font-size:14px;border-radius:999px;padding:10px 20px;white-space:nowrap}
+.sub-btn.off{opacity:.6;pointer-events:none}
+.ch-t{font-size:17px;color:var(--ice);margin:0 0 12px}
+.feat{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr;gap:24px;align-items:center;text-decoration:none;margin-bottom:30px}
+.ft-thumb{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:radial-gradient(500px 300px at 70% 60%,#2e6ae0,#0a2a7a 60%,#061640)}
+.ft-thumb img{position:absolute;right:4%;bottom:0;height:92%;width:auto}
+.pbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:68px;height:48px;border-radius:14px;background:#ff0033;display:grid;place-items:center;transition:transform .2s}
+.pbtn::after{content:"";margin-left:4px;border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent}
+.feat:hover .pbtn{transform:translate(-50%,-50%) scale(1.08)}
+.dur{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.75);color:#fff;font-size:12px;border-radius:4px;padding:1px 6px}
+.ft-txt h4{font-size:19px;color:var(--ice);margin:0 0 8px;line-height:1.4}
+.ft-txt p{color:var(--sub);font-size:14px;margin:0 0 12px}
+.yt-go{font-size:13px;color:var(--sky);font-weight:700}
+.shorts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,190px));gap:16px}
+.shorts a,.soon-s{display:flex;flex-direction:column;gap:4px;text-decoration:none}
+.shorts img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:14px;transition:transform .2s}
+.shorts a:hover img{transform:scale(1.03)}
+.shorts b{font-size:14px;color:var(--ice);line-height:1.4;margin-top:4px}
+.shorts span{font-size:12px;color:var(--dim)}
+.soon-s{aspect-ratio:9/16;border-radius:14px;box-shadow:inset 0 0 0 1.5px rgba(185,212,255,.25);align-items:center;justify-content:center;text-align:center;
+  background:repeating-linear-gradient(45deg,rgba(185,212,255,.04) 0 12px,transparent 12px 24px)}
+.soon-s b{font-size:28px;color:rgba(185,212,255,.35);margin:0}
+
+.dashwrap{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,1fr);gap:22px;align-items:start}
+.shot{position:relative;border-radius:16px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line),0 16px 40px rgba(0,0,0,.35)}
+.shot img{display:block;width:100%}
+.pin{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:var(--royal);color:#fff;
+  font-weight:700;font-size:13px;cursor:pointer;display:grid;place-items:center;padding:0;box-shadow:0 3px 10px rgba(0,0,0,.4);transition:transform .2s,background .2s}
+.pin::before{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(143,211,255,.6);animation:ping 2.4s ease-out infinite}
+@keyframes ping{0%{transform:scale(.7);opacity:.9}70%,100%{transform:scale(1.25);opacity:0}}
+.pin:hover,.pin.on{background:var(--sky);color:#0a1d4f;transform:translate(-50%,-50%) scale(1.15)}
+.pin.on::before{animation:none;border-color:#fff}
+.spots{list-style:none;margin:0;padding:0;max-height:560px;overflow-y:auto;display:grid;gap:8px}
+.spots li{border-radius:14px;padding:12px 14px;background:rgba(185,212,255,.05);box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;transition:background .2s}
+.spots li:hover{background:rgba(185,212,255,.1)}
+.spots li.on{background:var(--ice);box-shadow:none}
+.spots b{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ice)}
+.spots b span{width:22px;height:22px;border-radius:50%;background:var(--royal);color:#fff;font-size:12px;display:grid;place-items:center;flex:none}
+.spots li.on b,.spots li.on p{color:#0a1d4f}
+.spots li.on b span{background:#0a1d4f;color:#fff}
+.spots p{margin:6px 0 0 30px;font-size:13px;color:var(--sub);line-height:1.6}
+
+.shot.big{max-width:none;margin-bottom:10px}
+.shot .callout{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);max-width:min(620px,86%);background:rgba(4,16,46,.95);
+  box-shadow:inset 0 0 0 1px var(--sky),0 10px 30px rgba(0,0,0,.5);border-radius:14px;padding:12px 18px;animation:pop .25s ease both}
+.shot .callout b{display:flex;align-items:center;gap:8px;color:var(--ice);font-size:16px}
+.shot .callout b>span:first-child{width:22px;height:22px;border-radius:50%;background:var(--sky);color:#0a1d4f;font-size:12px;display:grid;place-items:center;flex:none}
+.shot .callout p{margin:6px 0 0;font-size:13.5px;color:#cdd8f2;line-height:1.6}
+.shot.empty{aspect-ratio:2/1;display:grid;place-items:center;text-align:center;box-shadow:inset 0 0 0 1.5px rgba(185,212,255,.25);
+  background:repeating-linear-gradient(45deg,rgba(185,212,255,.04) 0 14px,transparent 14px 28px)}
+.shot.empty b{display:block;font-size:20px;color:rgba(185,212,255,.5)}
+.shot.empty span{font-size:13px;color:var(--dim)}
+.sub-block{display:none}
+.sub-block.on{display:block}
+.who{display:inline-flex;gap:6px;background:rgba(3,10,34,.4);border-radius:999px;padding:5px;margin:0 0 18px}
+.who button{border:0;background:none;padding:8px 20px;border-radius:999px;font-weight:700;cursor:pointer;color:var(--sub);font-size:14px}
+.who button[aria-pressed="true"]{background:var(--ice);color:#0a1d4f}
+.spots.two{grid-template-columns:1fr 1fr;max-height:none;margin:14px 0 18px}
+.hint{font-size:12.5px;color:var(--dim);text-align:center;margin:0}
+
+#v-haeng .sub h4.nb{font-size:15.5px;white-space:nowrap;letter-spacing:-.02em}
+#v-haeng .sub h4{font-size:16px}
+#v-haeng .box p,#v-haeng .stages p,#v-haeng .sub p{text-wrap:pretty}
+#v-folio .twostep .st b,#v-haeng .stages h4{font-size:15px;text-wrap:balance}
+#v-haeng .stages p{font-size:12.5px;line-height:1.65}
+#v-haeng .bh{font-size:19px}
+#v-haeng .hand{font-size:1.35em}
+#v-haeng .stg span{font-size:10.5px}
+#v-haeng .teaser{font-size:12.5px}
+#v-haeng .qz .big{font-size:18px}
+#v-haeng .blist li{font-size:13px}
+
+.linkgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.lk{display:block;text-decoration:none;border-radius:16px;padding:18px 20px;background:rgba(185,212,255,.06);box-shadow:inset 0 0 0 1px var(--line);transition:transform .2s,background .2s}
+.lk:hover{transform:translateY(-2px);background:rgba(185,212,255,.12)}
+.lk b{display:block;font-size:17px;color:var(--ice)}
+.lk span{display:block;font-size:13px;color:var(--sub);margin:4px 0 8px}
+.lk em{font-style:normal;font-size:13px;font-weight:700;color:var(--sky)}
+.how a{font-size:11.5px;border-radius:6px;padding:2px 8px;text-decoration:none;font-weight:700;background:var(--ice);color:#0a1d4f}
+.posters figcaption .mini{grid-column:1/-1;margin-top:6px}
+body.autumn .lk{background:#fffaf2;box-shadow:none}
+body.autumn .lk:hover{background:#fff3e2}
+body.autumn .lk b{color:#3d2414}
+body.autumn .lk span{color:#7a5a44}
+body.autumn .lk em{color:#c9531b}
+body.autumn .lk.hi{background:#e0621f}
+body.autumn .lk.hi b,body.autumn .lk.hi em{color:#fff}
+body.autumn .lk.hi span{color:#ffe3cd}
+body.autumn .how a{background:#e0621f;color:#fff}
+
+.bites{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:18px}
+.bite{text-align:left;border:0;cursor:pointer;border-radius:14px;padding:14px 16px;background:rgba(185,212,255,.05);box-shadow:inset 0 0 0 1px var(--line);transition:background .2s}
+.bite:hover{background:rgba(185,212,255,.1)}
+.bite b{display:block;font-size:15px;color:var(--ice)}
+.bite span{display:block;font-size:12.5px;color:var(--sub);margin-top:2px}
+.bite.on{background:var(--ice)}
+.bite.on b{color:#0a1d4f}
+.bite.on span{color:#3b4f80}
+.bite-body{display:none}
+.bite-body.on{display:block;animation:fade .25s ease both}
+.bite-body h4{font-size:22px;color:var(--ice);text-align:center;margin-bottom:4px}
+.bite-body .lead{margin-top:6px}
+.steps4{max-width:680px;margin:0 auto;padding-left:22px;color:var(--sub);font-size:14px}
+.steps4 li{margin-bottom:6px}
+
+.goods.big{grid-template-columns:1fr 1fr;gap:26px;max-width:900px;margin:0 auto 16px}
+.goods.big img{aspect-ratio:1;object-fit:cover;border-radius:18px}
+.goods.big figcaption{padding:12px 4px 0}
+.goods.big figcaption b{font-size:19px}
+.goods.big figcaption p{margin:6px 0 0;font-size:13.5px;color:var(--sub)}
+#v-haeng .posters{margin-bottom:26px}
+#v-haeng .ch-t{margin:0 0 12px}
+
+.boothwrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr);gap:26px;align-items:start}
+.gal{position:relative}
+.strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip figure{margin:0;flex:0 0 100%;scroll-snap-align:center}
+.strip .zoom{border-radius:18px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.strip img{width:100%;height:min(46vh,420px);object-fit:contain;background:rgba(3,10,34,.25);display:block}
+.strip figcaption{text-align:center;font-size:13px;color:var(--sub);margin-top:8px}
+.gal .nav{position:absolute;top:calc(min(46vh,420px)/2);transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(4,16,46,.75);color:#fff;font-size:22px;line-height:1;box-shadow:inset 0 0 0 1px var(--line)}
+.gal .prev{left:8px}.gal .next{right:8px}
+.gal .nav:hover{background:var(--ice);color:#0a1d4f}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.dots button{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(185,212,255,.3);cursor:pointer}
+.dots button.on{background:var(--sky);width:18px;border-radius:4px}
+.boothside{display:grid;gap:10px}
+.boothside .lk{padding:11px 13px}
+.boothside .lk b{font-size:13px;line-height:1.35;text-wrap:balance}
+.boothside .lk span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.boothside .lk span{font-size:11px;margin:2px 0 4px}
+.boothside .lk em{font-size:11px}
+.boothside .badge{font-size:9.5px;padding:1px 7px;margin-bottom:6px}
+.boothside .blist li{font-size:11.5px;padding:6px 0}
+.boothside .smalllinks a{font-size:10.5px;padding:4px 8px}
+.boothside .lk.hi{background:linear-gradient(140deg,rgba(47,99,224,.5),rgba(143,211,255,.18));box-shadow:inset 0 0 0 1.5px var(--sky)}
+.lk em.badge{display:inline-block}
+.badge{display:inline-block;font-style:normal;font-size:10.5px;letter-spacing:.14em;font-weight:700;color:#0a1d4f;background:var(--sky);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+.smalllinks{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.smalllinks a{font-size:12.5px;text-decoration:none;border-radius:8px;padding:5px 10px;box-shadow:inset 0 0 0 1px var(--line);color:var(--sky)}
+.smalllinks a:hover{background:rgba(185,212,255,.1)}
+body.autumn .strip img{background:#fffaf2}
+body.autumn .strip .zoom{box-shadow:inset 0 0 0 1px rgba(150,90,40,.18)}
+body.autumn .gal .nav{background:rgba(255,250,242,.9);color:#c9531b;box-shadow:inset 0 0 0 1px rgba(150,90,40,.2)}
+body.autumn .gal .nav:hover{background:#e0621f;color:#fff}
+body.autumn .dots button{background:rgba(150,90,40,.25)}
+body.autumn .dots button.on{background:#e0621f}
+body.autumn .lk.hi{background:#e0621f;box-shadow:none}
+body.autumn .lk.hi b,body.autumn .lk.hi em{color:#fff}
+body.autumn .lk.hi span{color:#ffe3cd}
+body.autumn .boothside .lk.hi b,body.autumn .boothside .lk.hi em{color:#fff}
+body.autumn .lk.hi em.badge{background:#fff;color:#c9531b}
+body.autumn .boothside .lk.hi span{color:#ffe3cd}
+body.autumn .badge{background:#fff;color:#c9531b}
+body.autumn .smalllinks a{color:#c9531b;box-shadow:inset 0 0 0 1px rgba(150,90,40,.25)}
+
+.big-hand{font-size:44px!important;line-height:1.1}
+.hero-line{display:grid;grid-template-columns:200px 1fr;gap:26px;align-items:center;border-radius:20px;padding:24px 28px;margin-bottom:18px;
+  background:rgba(22,44,110,.55);box-shadow:inset 0 0 0 1px var(--line)}
+.hero-line img{width:100%;border-radius:16px}
+.hero-line em{font-style:normal;font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--sky)}
+.hero-line h3{font-size:34px;color:var(--ice);margin:6px 0 8px;line-height:1.25}
+.hero-line h3 .hand{font-size:1.15em}
+.hero-line p{margin:0 0 16px;color:var(--sub);font-size:14.5px}
+.btns2{display:flex;gap:10px;flex-wrap:wrap}
+.twostep{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:16px}
+.twostep .st{border-radius:16px;padding:18px 20px;background:rgba(185,212,255,.05);box-shadow:inset 0 0 0 1px var(--line);text-align:center}
+.twostep .num{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;margin:0 auto 10px;background:var(--sky);color:#0a1d4f;font-weight:700;font-size:16px}
+.twostep b{display:block;font-size:16px;color:var(--ice)}
+.twostep p{margin:6px 0 0;font-size:13px;color:var(--sub)}
+.twostep .arrow{color:var(--sky);font-size:20px}
+.twostep .gift-st{background:linear-gradient(150deg,rgba(143,211,255,.25),rgba(3,10,34,.3));box-shadow:inset 0 0 0 1.5px var(--sky)}
+.twostep .gift-st .num{background:var(--ice);font-size:18px}
+.bonus{background:rgba(185,212,255,.05);border-radius:14px;border:0;margin-bottom:18px;box-shadow:inset 0 0 0 1px var(--line)}
+.bonus summary{padding:14px 44px 14px 18px;font-size:15px}
+.bonus summary::after{top:8px;right:16px}
+.bonus .ans{padding:0 18px 16px;font-size:13.5px;line-height:1.7}
+body.autumn .hero-line{background:#f5e8d6;box-shadow:none}
+body.autumn .hero-line em{color:#e0621f}
+body.autumn .hero-line h3{color:#3d2414}
+body.autumn .hero-line p{color:#7a5a44}
+body.autumn .twostep .st{background:#fffaf2;box-shadow:none}
+body.autumn .twostep .num{background:#e0621f;color:#fff}
+body.autumn .twostep b{color:#3d2414}
+body.autumn .twostep p{color:#7a5a44}
+body.autumn .twostep .arrow{color:#e0621f}
+body.autumn .twostep .gift-st{background:linear-gradient(150deg,#ffe0c4,#fffaf2);box-shadow:inset 0 0 0 1.5px #e0621f}
+body.autumn .bonus{background:#fffaf2;box-shadow:none;color:#5a3d28}
+body.autumn .bonus summary{color:#3d2414}
+body.autumn .btn.line{color:#c9531b;box-shadow:inset 0 0 0 1.5px rgba(200,110,40,.5);background:#fffaf2}
+body.autumn .btn.ice{background:#e0621f;color:#fff}
+body.autumn .mini{color:#c9531b}
+body.autumn .bonus summary::after{color:#e0621f}
+body.autumn .bonus .ans{color:#7a5a44}
+
+.bigposter{width:100%;max-width:760px;margin:0 auto 18px;display:block;border-radius:20px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line)}
+.bigposter img{width:100%;display:block}
+.linkgrid.four{grid-template-columns:repeat(4,1fr);margin-bottom:24px}
+.linkgrid.four .lk{padding:16px 18px}
+.boothwrap{grid-template-columns:minmax(0,1.6fr) minmax(220px,.6fr);align-items:start;gap:20px}
+.strip img{height:min(66vh,620px);border-radius:18px;box-shadow:inset 0 0 0 1px var(--line)}
+.gal .nav{top:calc(min(66vh,620px)/2)}
+body.autumn .bigposter{box-shadow:none}
+
+.flank{display:grid;grid-template-columns:minmax(210px,1fr) minmax(0,600px) minmax(210px,1fr);gap:18px;align-items:center;margin-bottom:24px}
+.fside{display:grid;gap:10px}
+.fside .lk{padding:14px 16px}
+.fside .lk b{font-size:15.5px;line-height:1.35}
+.fside .lk span{font-size:12.5px;margin:4px 0 6px}
+.fside .lk em{font-size:12.5px}
+.flank .bigposter{max-width:none;margin:0}
+
+.board{display:grid;gap:8px;max-width:940px;margin:0 auto}
+.brow{background:#fff;border-radius:14px;border:0;box-shadow:0 4px 14px rgba(0,0,0,.16);transition:box-shadow .2s}
+.brow:hover{box-shadow:0 6px 20px rgba(0,0,0,.24)}
+.brow[open]{box-shadow:0 10px 26px rgba(0,0,0,.28)}
+.brow summary{padding:15px 46px 15px 18px;font-size:15.5px;color:#0e1a3a;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.brow summary::before{content:"Q";font-weight:700;color:#1f4fd1;font-size:14px;margin-right:2px}
+.brow[open] summary{border-bottom:1px solid #e6ecf8;margin-bottom:12px}
+.brow summary b{font-weight:700}
+.brow summary span{font-size:13px;color:#5a6b90;font-weight:400}
+.brow summary::after{color:#1f4fd1;top:10px;right:18px}
+.bbody{padding:0 20px 22px;color:#3c4a6b}
+.bbody .lead,.bbody p,.bbody .steps4{color:#4a5a80}
+.bbody h4{color:#0e1a3a}
+.bbody .hint{color:#7a86a8;text-align:left}
+.bbody .node b{color:#0e1a3a}
+.bbody .node .dot{background:#1f4fd1;color:#fff}
+.bbody .node.goal .dot{background:#0e1a3a}
+.bbody .node .ts{color:#1f4fd1;opacity:1}
+.bbody .road .path path{stroke:rgba(31,79,209,.35)}
+.bbody .btn.ice{background:#0e1a3a;color:#fff}
+.bbody .btn.line{background:#fff;color:#1f4fd1;box-shadow:inset 0 0 0 1.5px rgba(31,79,209,.4)}
+.bbody .mini{color:#1f4fd1}
+.bbody b{color:#0e1a3a}
+
+.subnav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:760px;margin:0 auto 22px}
+.snav{border:0;cursor:pointer;border-radius:16px;padding:14px 12px;text-align:center;background:rgba(185,212,255,.05);box-shadow:inset 0 0 0 1px var(--line);transition:transform .2s,background .2s}
+.snav:hover{transform:translateY(-2px);background:rgba(185,212,255,.12)}
+.snav .ic{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;margin:0 auto 8px;font-size:23px;line-height:1;
+  background:rgba(143,211,255,.18);box-shadow:inset 0 0 0 1px rgba(185,212,255,.3);overflow:hidden}
+.snav .ic img{width:46px;height:46px;object-fit:contain;object-position:center top;display:block}
+.snav.on .ic{background:#0a1d4f}
+.snav b{display:block;font-size:14.5px;color:var(--ice)}
+.snav em{font-style:normal;display:block;font-size:11.5px;color:var(--sub);margin-top:2px}
+.snav.on{background:var(--ice);box-shadow:none}
+.snav.on b{color:#0a1d4f}
+.snav.on em{color:#3b4f80}
+.sub-block{display:none}
+.sub-block.on{display:block}
+
+.qzposter{width:100%;border-radius:14px;display:block}
+.qgame{display:grid;gap:8px;margin:12px 0 10px}
+.qrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.qrow .cho{font-size:19px;font-weight:700;letter-spacing:.18em;color:var(--sky);min-width:96px}
+.qrow input{flex:1;min-width:120px;border:0;border-radius:10px;padding:9px 12px;font-size:14px;background:rgba(3,10,34,.35);
+  box-shadow:inset 0 0 0 1px var(--line);color:var(--text)}
+.qrow button{border:0;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;background:var(--ice);color:#0a1d4f}
+.qrow .res{font-size:14px;font-weight:700;min-width:64px}
+.qrow.ok .res{color:var(--sprout)}
+.qrow.no .res{color:#ff9aa0}
+body.autumn .qrow .cho{color:#e0621f}
+body.autumn .qrow input{background:#fffaf2;color:#3d2414;box-shadow:inset 0 0 0 1px rgba(150,90,40,.25)}
+body.autumn .qrow button{background:#e0621f;color:#fff}
+body.autumn .qrow.ok .res{color:#2f8f4e}
+body.autumn .qrow.no .res{color:#c9531b}
+
+.twostep.three{grid-template-columns:1fr auto 1fr auto 1fr}
+.twostep .st{text-align:left;padding:18px 20px 16px}
+.twostep .num{margin:0 0 10px}
+.twostep .tagline{display:inline-block;margin-top:10px;font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 10px;background:rgba(185,212,255,.12);color:var(--frost)}
+.twostep .gift-tag{background:var(--ice);color:#0a1d4f}
+.twostep .st.key2{background:linear-gradient(150deg,rgba(143,211,255,.22),rgba(3,10,34,.3));box-shadow:inset 0 0 0 1.5px var(--sky)}
+.twostep .st.pro2{background:linear-gradient(150deg,rgba(255,183,131,.16),rgba(3,10,34,.3));box-shadow:inset 0 0 0 1px rgba(255,180,120,.4)}
+body.autumn .twostep .tagline{background:#f5e8d6;color:#8a6a50}
+body.autumn .twostep .gift-tag{background:#e0621f;color:#fff}
+body.autumn .twostep .st.key2{background:linear-gradient(150deg,#ffe0c4,#fffaf2);box-shadow:inset 0 0 0 1.5px #e0621f}
+body.autumn .twostep .st.pro2{background:linear-gradient(150deg,#fbe8c8,#fffaf2);box-shadow:inset 0 0 0 1px rgba(200,140,60,.45)}
+
+.ptable{width:100%;border-collapse:collapse;margin:4px 0 12px;font-size:14px}
+.ptable th{text-align:left;width:190px;padding:9px 12px;background:#eef3fc;color:#0e1a3a;font-weight:700;border-radius:8px}
+.ptable td{padding:9px 12px;color:#3c4a6b}
+.ptable tr+tr th,.ptable tr+tr td{border-top:6px solid transparent}
+.gal.cards{margin-top:14px}
+.gal.cards .strip img{height:min(52vh,460px);border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.gal.cards .nav{top:calc(min(52vh,460px)/2);background:rgba(14,26,58,.8);color:#fff}
+.gal.cards figcaption{color:#5a6b90}
+.gal.cards .dots button{background:rgba(31,79,209,.25)}
+.gal.cards .dots button.on{background:#1f4fd1}
+.gal.cards .hint{color:#7a86a8}
+
+.bbody.split2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,1fr);gap:22px;align-items:start}
+.bbody.split2 .gal.cards{order:-1;margin-top:0}
+.bbody.split2 .gal.cards .strip img{height:min(62vh,560px)}
+.bbody.split2 .gal.cards .nav{top:calc(min(62vh,560px)/2)}
+.bbody.split2 .ptable{font-size:13px}
+.bbody.split2 .ptable th{width:150px;padding:7px 10px;font-size:12.5px}
+.bbody.split2 .ptable td{padding:7px 10px;font-size:12.5px}
+
+.intro{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:start;max-width:940px;margin:0 auto 22px;
+  background:rgba(185,212,255,.06);box-shadow:inset 0 0 0 1px var(--line);border-radius:18px;padding:18px 22px}
+.intro img{width:64px;height:64px;border-radius:50%}
+.intro p{margin:0;font-size:14.5px;line-height:1.85;color:#d4def5}
+.intro p b{color:var(--sky)}
+.intro.prof p{color:#cdd8f2}
+.callbox{max-width:940px;margin:18px auto 0;border-radius:18px;padding:18px 22px;background:linear-gradient(140deg,rgba(47,99,224,.35),rgba(143,211,255,.12));
+  box-shadow:inset 0 0 0 1px var(--line);display:grid;gap:6px}
+.callbox b{font-size:16px;color:var(--ice)}
+.callbox span{font-size:13.5px;color:#cdd8f2;line-height:1.7}
+.callbox a{justify-self:start;margin-top:6px;font-size:13px;font-weight:700;color:#0a1d4f;background:var(--ice);border-radius:10px;padding:8px 14px;text-decoration:none}
+
+.intro.letter{grid-template-columns:76px 1fr;align-items:start;padding:24px 26px}
+.intro.letter img{width:76px;height:76px}
+.intro.letter p{margin:0 0 10px}
+.intro.letter .dear{font-size:17px;font-weight:700;color:var(--ice);margin-bottom:12px}
+.intro.letter .by{margin:14px 0 0;font-size:13px;color:var(--sky);text-align:right}
+.notice-box{max-width:940px;margin:0 auto 18px;border-radius:18px;padding:18px 22px;background:rgba(143,211,255,.1);box-shadow:inset 0 0 0 1px var(--sky)}
+.notice-box b{display:block;font-size:16px;color:var(--ice);margin-bottom:6px}
+.notice-box p{margin:0;font-size:14px;line-height:1.8;color:#cdd8f2}
+
+.scnav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.scb{border:0;cursor:pointer;border-radius:999px;padding:8px 18px;font-size:13.5px;font-weight:700;color:var(--sub);background:rgba(185,212,255,.06);box-shadow:inset 0 0 0 1px var(--line)}
+.scb.on{background:var(--ice);color:#0a1d4f;box-shadow:none}
+.screen{display:none}
+.screen.on{display:block;animation:fade .25s ease both}
+/* ===== 가을 톤 (행성주) ===== */
+.leaves{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;display:none}
+.leaves i{position:absolute;top:-30px;border-radius:0 80% 0 80%;animation:leaf linear infinite}
+@keyframes leaf{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(-40px,55vh) rotate(200deg)}100%{transform:translate(30px,110vh) rotate(420deg)}}
+.hand{font-family:"Gaegu","SMU Snowflake",cursive;font-size:1.45em;line-height:1}
+.pg-sub{margin:4px 0 0;font-size:14px;color:var(--sub)}
+.qrthumb{position:relative;margin:4px 0 10px;border-radius:12px}
+.qrthumb img{aspect-ratio:1400/560;object-fit:cover;object-position:right top}
+.qrthumb span{position:absolute;right:8px;bottom:8px;font-size:11px;background:rgba(0,0,0,.55);color:#fff;border-radius:6px;padding:2px 8px}
+.qrwide{margin:0 0 18px;border-radius:18px}
+body.autumn{background:radial-gradient(900px 600px at 85% 8%,rgba(242,163,58,.25),transparent 60%),linear-gradient(180deg,#fdf6ea,#f8ead6)}
+body.autumn .sky,body.autumn .moon,body.autumn .crystal{display:none}
+body.autumn .leaves{display:block}
+body.autumn .side{background:#fffaf2;box-shadow:inset 0 0 0 1px rgba(150,90,40,.16),0 10px 30px rgba(150,90,40,.08)}
+body.autumn .brand h1{background:linear-gradient(180deg,#e0621f,#9c3d14);-webkit-background-clip:text;background-clip:text}
+body.autumn .brand .yr{color:#b8491a}
+body.autumn .brand p,body.autumn .side .quote{color:#9a7a60}
+body.autumn .menu a{color:#6b4a33}
+body.autumn .menu a:hover{background:#f7e9d6;color:#3d2414}
+body.autumn .menu a[aria-current="page"]{background:#e0621f;color:#fff}
+body.autumn .seg{background:#fffaf2;box-shadow:inset 0 0 0 1px rgba(150,90,40,.16)}
+body.autumn .seg button{color:#7a5a44}
+body.autumn .seg button[aria-selected="true"]{background:#e0621f;color:#fff}
+body.autumn .crumb{color:#9a7a60}
+body.autumn .crumb b{color:#3d2414}
+body.autumn .spark{color:#f2a33a}
+body.autumn .search input{background:#fffaf2;color:#3d2414;box-shadow:inset 0 0 0 1px rgba(150,90,40,.2)}
+body.autumn .search input::placeholder{color:#b09580}
+body.autumn .search svg{stroke:#b8491a}
+body.autumn .sugg{background:#fffaf2;color:#3d2414;box-shadow:0 12px 30px rgba(150,90,40,.18),inset 0 0 0 1px rgba(150,90,40,.16)}
+body.autumn .sugg a:hover{background:#f7e9d6}
+body.autumn .login{background:#e0621f;color:#fff}
+body.autumn .panel{background:#fbf4e8;box-shadow:inset 0 0 0 1px rgba(150,90,40,.14),0 20px 50px rgba(150,90,40,.12)}
+body.autumn #v-haeng{--sub:#7a5a44;color:#3d2414}
+body.autumn .pg-h small{color:#e0621f}
+body.autumn .pg-h h2{color:#3d2414}
+body.autumn .pg-h h2::before{content:"";display:inline-block;width:5px;height:.85em;border-radius:3px;background:linear-gradient(#f2a33a,#e0621f);margin-right:10px;vertical-align:-2px}
+body.autumn .box{background:#f5e8d6;box-shadow:none}
+body.autumn .bh{color:#3d2414}
+body.autumn .bh em{color:#e0621f}
+body.autumn .hand{background:linear-gradient(90deg,#e0621f,#f2a33a);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+body.autumn .box p{color:#5a3d28}
+body.autumn .hl{color:#c9531b}
+body.autumn .sub{background:#fffaf2;box-shadow:none}
+body.autumn .sub small{color:#e0621f}
+body.autumn .sub h4{color:#3d2414}
+body.autumn .sub h4 span{color:#b8491a}
+body.autumn .sub p{color:#7a5a44}
+body.autumn .cart img{box-shadow:0 0 0 6px rgba(242,163,58,.25),0 0 40px rgba(242,163,58,.35)}
+body.autumn .cart span{color:#b8491a}
+body.autumn .stages li{background:#fffaf2;box-shadow:none}
+body.autumn .stages li:not(:last-child)::after{border-color:#e0621f}
+body.autumn .stages li.key{background:linear-gradient(160deg,#ffe6cc,#fffaf2);box-shadow:inset 0 0 0 2px #e0621f}
+body.autumn .stages li.pro{background:linear-gradient(160deg,#fbe3b8,#fffaf2);box-shadow:inset 0 0 0 1px rgba(200,120,30,.4)}
+body.autumn .stg span{color:#e0621f}
+body.autumn .pro .stg span{color:#b36b10}
+body.autumn .stg i{background:#f5e8d6;color:#6b4a33}
+body.autumn .key .stg i{background:#e0621f;color:#fff}
+body.autumn .pro .stg i{background:#f2a33a;color:#fff}
+body.autumn .stages h4{color:#3d2414}
+body.autumn .stages p{color:#7a5a44}
+body.autumn .stages p b{color:#c9531b}
+body.autumn .how span{box-shadow:inset 0 0 0 1px rgba(150,90,40,.3);color:#6b4a33}
+body.autumn .gift{background:#f5e8d6;color:#5a3d28}
+body.autumn .gift b{color:#c9531b}
+body.autumn .teaser{background:#fff3e2;box-shadow:inset 0 0 0 1px rgba(224,98,31,.35);color:#5a3d28}
+body.autumn .teaser>b{color:#e0621f}
+body.autumn .teaser span b{color:#c9531b}
+body.autumn .blist li{border-color:rgba(150,90,40,.25)}
+body.autumn .blist b{color:#3d2414}
+body.autumn .blist span{color:#c9531b}
+body.autumn .blist .d{background:#fffaf2;color:#c9531b}
+body.autumn .blist .d.both{background:#e0621f;color:#fff}
+body.autumn .mini{color:#c9531b}
+body.autumn .qz .big{color:#3d2414}
+body.autumn .goods b{color:#3d2414}
+body.autumn .goods span{color:#c9531b}
+body.autumn .note,body.autumn .foot{color:#9a7a60}
+body.autumn .posters figure{background:#fffaf2;box-shadow:none}
+body.autumn .posters figcaption b{color:#3d2414}
+body.autumn .posters figcaption small{color:#7a5a44}
+body.autumn .posters .d{background:#f5e8d6;color:#c9531b}
+body.autumn .posters .d.both{background:#e0621f;color:#fff}
+body.autumn .appbar{background:rgba(255,250,242,.97);box-shadow:0 -1px 0 rgba(150,90,40,.16)}
+body.autumn .appbar a{color:#a88a72}
+body.autumn .appbar a[aria-current="page"]{color:#e0621f}
+body.autumn .panel,body.autumn .side{transition:background .4s}
+/* 앱(모바일) 하단 탭 */
+.appbar{display:none}
+
+.foot{text-align:center;color:var(--dim);font-size:12px;margin-top:34px}
+
+@media (max-width:1000px){
+  body{overflow:auto}
+  .shell{display:block;height:auto;padding:0 0 calc(76px + env(safe-area-inset-bottom))}
+  .side{position:sticky;top:0;z-index:10;border-radius:0;padding:12px 16px;flex-direction:row;align-items:center}
+  .brand{padding:0}
+  .brand h1{font-size:22px}
+  .brand .yr{margin-top:0;font-size:10.5px}
+  .brand p,.side .quote{display:none}
+  .side nav{display:none}
+  .main{display:block;padding:12px 12px 0}
+  .top{flex-wrap:wrap;margin-bottom:12px;gap:8px}
+  .search{width:100%;order:3}
+  .crumb,.spark{display:none}
+  .login{position:fixed;top:14px;right:14px;z-index:11}
+  .seg{max-width:100%;overflow-x:auto}
+  .seg button{white-space:nowrap}
+  .top:has(.seg[hidden]){margin-bottom:12px}
+  .cart img{width:96px;height:96px}
+  .panel{border-radius:20px}
+  .view{height:auto;overflow:visible;padding:22px 16px 28px}
+  .home{grid-template-columns:1fr}
+  .home .txt{padding:28px 20px 0}
+  .home .art img{max-height:none}
+  .grid3,.nl,.player2,.pair,.duo,.hsteps,.stages,.posters{grid-template-columns:1fr}
+  .qz{grid-template-columns:120px 1fr}
+  .subnav{grid-template-columns:1fr;gap:8px}
+  .intro,.intro.letter{grid-template-columns:1fr;text-align:center}
+  .intro.letter .by{text-align:center}
+  .intro img{margin:0 auto}
+  .snav{display:flex;align-items:center;gap:10px;text-align:left;padding:12px 14px}
+  .snav .ic{margin:0;font-size:20px}
+  .snav .ic img{width:34px;margin:0}
+  .goods.big{grid-template-columns:1fr}
+  .boothwrap{grid-template-columns:1fr}
+  .bbody.split2{grid-template-columns:1fr}
+  .bbody.split2 .gal.cards .strip img{height:52vh}
+  .linkgrid.four{grid-template-columns:1fr 1fr}
+  .flank{grid-template-columns:1fr}
+  .fside{grid-template-columns:1fr 1fr;grid-auto-rows:1fr}
+  .strip img{height:52vh}
+  .gal .nav{top:calc(52vh/2)}
+  .hero-line{grid-template-columns:1fr;text-align:center}
+  .hero-line img{max-width:180px;margin:0 auto}
+  .btns2{justify-content:center}
+  .twostep{grid-template-columns:1fr}
+  .twostep .arrow{transform:rotate(90deg)}
+  .big-hand{font-size:34px!important}
+  .strip img{height:52vh}
+  .gal .nav{top:calc(52vh/2)}
+  .linkgrid{grid-template-columns:1fr}
+  .dashwrap{grid-template-columns:1fr}
+  .spots,.spots.two{max-height:none;grid-template-columns:1fr}
+  .shot .callout{position:static;transform:none;max-width:none;margin-top:10px}
+  .pin{width:24px;height:24px;font-size:11px}
+  .ch-banner{grid-template-columns:auto 1fr}
+  .ch-av{width:64px;height:64px}
+  .sub-btn{grid-column:1/-1;justify-self:start}
+  .feat{grid-template-columns:1fr}
+  .shorts{grid-template-columns:1fr 1fr}
+  .thumbs{grid-template-columns:1fr 1fr;gap:12px}
+  .tt{padding:10px 12px 14px}
+  .tt h3{font-size:14.5px}
+  .giftbox .gwrap{grid-template-columns:1fr}
+  .stages li::after{display:none}
+  .teaser{flex-direction:column;align-items:flex-start;gap:2px}
+  .concept{grid-template-columns:1fr}
+  .cart{order:-1}
+  .road ol{grid-template-columns:1fr 1fr}
+  .road li:nth-child(n){grid-column:auto;grid-row:auto}
+  .road .path{display:none}
+  .phonef{justify-self:center}
+  .phonef video{height:70vh;width:calc(70vh * 9 / 16)}
+  .reels{grid-template-columns:repeat(2,1fr)}
+  .appbar{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:20;grid-template-columns:repeat(7,1fr);
+    background:rgba(4,16,46,.96);backdrop-filter:blur(10px);box-shadow:0 -1px 0 var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .appbar a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--dim);text-decoration:none;padding:4px 0}
+  .appbar svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .appbar a[aria-current="page"]{color:var(--ice)}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="sky" id="sky" aria-hidden="true"></div>
+<div class="leaves" id="leaves" aria-hidden="true"></div>
+<div class="moon" aria-hidden="true"></div>
+<svg class="crystal" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#b9d4ff" stroke-width="1.2"><polygon points="50,3 91,26 91,74 50,97 9,74 9,26"/><polygon points="50,18 78,34 78,66 50,82 22,66 22,34"/><path d="M50 3v94M9 26l82 48M91 26L9 74M50 18l-7-6M50 18l7-6M50 82l-7 6M50 82l7 6"/></svg>
+<svg class="crystal r" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#b9d4ff" stroke-width="1.2"><polygon points="50,3 91,26 91,74 50,97 9,74 9,26"/><path d="M50 3v94M9 26l82 48M91 26L9 74"/></svg>
+
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="#home">
+      <h1>SNOWISE</h1>
+      <span class="yr">2026 학생성장 통합시스템</span>
+      <p>흩어진 기록이 모이는 곳,<br>그리고 앞으로 걸어갈 길</p>
+    </a>
+    <nav aria-label="메뉴">
+      <ul class="menu">
+        <li><a href="#home" data-r="home"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>홈</a></li>
+        <li><a href="#about" data-r="about"><svg viewBox="0 0 24 24"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"/><path d="M12 8v8M8.5 10l7 4M15.5 10l-7 4"/></svg>SNOWISE 소개</a></li>
+        <li><a href="#haeng" data-r="haeng"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/></svg>2026-2 숙명행복성장주간</a></li>
+        <li><a href="#guide" data-r="guide"><svg viewBox="0 0 24 24"><path d="M4 5h11l5 5v9H4z"/><path d="M8 11h8M8 15h5"/></svg>한입-SNOWISE</a></li>
+        <li><a href="#folio" data-r="folio"><svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 13h8M8 17h5"/></svg>포트폴리오 작성</a></li>
+        <li><a href="#newsletter" data-r="newsletter"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>뉴스레터</a></li>
+        <li><a href="#youtube" data-r="youtube"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.2l5 2.8-5 2.8z"/></svg>학생경력설계팀 유튜브</a></li>
+      </ul>
+    </nav>
+    <div class="quote"><img src="assets/img/01.webp" alt=""><span>"눈송이가 걸어온 길마다,<br>튜리가 기록해 둘게요."</span></div>
+  </aside>
+
+  <div class="main">
+    <div class="top">
+      <div class="seg" id="seg" role="tablist" aria-label="보기 전환"></div>
+      <div class="crumb" id="crumb"></div>
+      <span class="spark" aria-hidden="true">✦</span>
+      <div class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="q" type="search" placeholder="메뉴, 키워드로 검색해 보세요 (예: 자소서, 이수확인서)" autocomplete="off" aria-label="검색">
+        <ul class="sugg" id="sugg" hidden></ul>
+      </div>
+      <a class="login" href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener">로그인</a>
+    </div>
+
+    <div class="panel">
+
+      <!-- 홈 -->
+      <section class="view" id="v-home" data-title="홈">
+        <div class="home">
+          <div class="txt">
+            <small>SOOKMYUNG · DATA × AI</small>
+            <h2>SNOWISE</h2>
+            <h3>1만 2천 눈송이의<br>활동 데이터를 한눈에</h3>
+            <p>AI 데이터로 시작하는 눈송이 커리어 성장 로드맵.<br>학교 포털 계정으로 바로 시작해요.</p>
+            <div class="go">
+              <a class="btn ice" href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener">SNOWISE 시작하기</a>
+              <a class="btn line" href="#youtube">유튜브 보기</a>
+            </div>
+          </div>
+          <div class="art">
+            <img src="assets/img/02.webp" alt="SNOWISE 팻말을 든 튜리와 눈송프렌즈가 책 더미 앞에 모여 있는 모습">
+            <div class="bub">송이야, 나 튜리야!<br>메뉴에서 골라 봐</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 소개 -->
+      <section class="view" id="v-about" data-title="SNOWISE 소개">
+        <header class="pg-h"><small>INFORMATION</small><h2>SNOWISE 안내</h2></header>
+
+        <div class="intro letter">
+          <img loading="lazy" decoding="async" src="assets/img/01.webp" alt="">
+          <div>
+            <p class="dear">Dear 송이들,</p>
+            <p>그거 알아 👀 학기 시작하고 벌써 한 달이 지났더라고. 올해도 눈 깜짝할 사이에 흘러가는 느낌이지? 그동안 들은 특강, 참여한 비교과, 받아둔 상담… 다 어디에 적어놨더라 싶을 때 열어보는 곳이 바로 <b>SNOWISE</b>야.</p>
+            <p><b>스노웨이(Snow-way)</b>는 송이들이 걸어온 대학생활의 발자취, <b>와이즈(Wise)</b>는 그 기록으로 다음 걸음을 슬기롭게 비춰 주는 지혜. 둘을 더해서 <b>SNOWISE</b>가 됐어. 흩어져 있던 내 활동을 한곳에 모아두고, 필요할 때 이력서·자기소개서로 꺼내 쓰라고 만든 시스템이야.</p>
+            <p>오늘은 가볍게 로그인만 해봐도 충분해. 쌓인 걸 한 번 보고 나면, 다음에 뭘 해야 할지가 훨씬 또렷해지거든 🤍</p>
+            <p class="by">by. 튜리 ❄️</p>
+          </div>
+        </div>
+
+        <div class="notice-box">
+          <b>📢 추석 연휴에도 SNOWISE는 안 쉬어</b>
+          <p>연휴에도 24시간 열려 있으니까 이수확인서 출력도, AI 코칭도 편할 때 하면 돼. 다만 학생경력설계팀은 연휴 동안 자리를 비우니까, 사람 손이 필요한 문의는 연휴가 끝난 뒤에 답을 줄게. 송이들 맛있는 거 많이 먹고 다정한 명절 보내고 와 🧡</p>
+        </div>
+
+        <article class="box">
+          <h3 class="bh"><em>NOTICE</em>이용 안내</h3>
+          <div class="acc">
+            <details><summary>로그인 안내</summary><div class="ans">숙명포털 계정으로 로그인합니다. 따로 회원가입은 필요 없으며, 포털 로그인 시 구글 OTP 2차 인증이 필요할 수 있습니다.</div></details>
+            <details><summary>무엇을 할 수 있나요</summary><div class="ans">경력과 비교과 활동을 한곳에서 찾고 신청할 수 있고, 참여한 활동은 e-포트폴리오로 쌓입니다. 쌓인 기록으로 AI 추천 로드맵과 AI 코칭을 받을 수 있습니다.</div></details>
+            <details><summary>비교과 이수확인서 발급</summary><div class="ans">SNOWISE 상단 <b>비교과프로그램</b> 탭 → 왼쪽 <b>신청/이수현황</b> → 프로그램 체크 후 <b>출력</b>. <a class="mini" href="#guide/history">로드맵 보기</a></div></details>
+            <details><summary>AI 코칭 받기</summary><div class="ans"><b>AI추천 → AI 코칭</b>에서 코치 15명 중 한 명을 고르고 고민을 적으면 나만의 리포트가 완성됩니다. <a class="mini" href="#guide/ai">로드맵 보기</a></div></details>
+            <details><summary>문의처</summary><div class="ans">경력개발처 학생경력설계팀 · T 02-2077-7136 · snowise@sookmyung.ac.kr</div></details>
+          </div>
+        </article>
+</section>
+
+      <!-- 한입 SNOWISE -->
+      <section class="view" id="v-guide" data-title="한입-SNOWISE" data-tabs='[["student","학생용"],["prof","교수님용"],["staff","교직원용"]]'>
+        <header class="pg-h"><small>ONE BITE</small><h2>한입-SNOWISE</h2></header>
+
+
+        <div class="pane on" data-p="student">
+          <div class="intro">
+          <img loading="lazy" decoding="async" src="assets/img/01.webp" alt="">
+          <p>SNOWISE 켜긴 켰는데 뭐부터 눌러야 할지 몰라 창만 껐다 켰다 하고 있다고? 송이들의 SNOWISE는 튜리가 책임져야지! 많이 물어본 것만 한입 크기로 모아뒀어. 로그인부터 이수확인서 출력, AI 코칭까지 — 다 읽을 필요 없이 궁금한 것만 콕 눌러 보면 돼. 화면 어디에 뭐가 있는지는 <b>홈 화면 안내</b>에서 번호로 짚어 뒀으니 처음이라면 거기부터 보고 와 🤍</p>
+        </div>
+          <div class="subnav"><button class="snav on" data-g="stu" data-s="home"><span class="ic">🖥️</span><b>홈 화면 안내</b><em>로그인하면 보이는 화면</em></button><button class="snav" data-g="stu" data-s="faq"><span class="ic"><img loading="lazy" decoding="async" src="assets/img/03.webp" alt=""></span><b>송이가 궁금해하는 것</b><em>많이 물어본 질문 모음</em></button><button class="snav" data-g="stu" data-s="reco"><span class="ic">✨</span><b>비교과프로그램 추천</b><em>나한테 맞는 프로그램 찾기</em></button></div>
+          <div class="sub-block" data-s="faq"><div class="board">
+            <details class="brow">
+              <summary><b>비교과 이수확인서 발급</b><span>내가 들은 비교과, 한 장으로 출력</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">단계를 누르면 그 장면부터 영상이 재생돼요.</p>
+            <div class="road"><svg class="path" aria-hidden="true"></svg><ol><li class="node"><button class="dot" data-seek="history" data-t="3" aria-label="1단계 숙명포털 로그인, 영상 0:03부터 보기">1</button><b>숙명포털 로그인</b><span class="ts">▶ 0:03</span></li><li class="node"><button class="dot" data-seek="history" data-t="6" aria-label="2단계 SNOWISE 입장, 영상 0:06부터 보기">2</button><b>SNOWISE 입장</b><span class="ts">▶ 0:06</span></li><li class="node"><button class="dot" data-seek="history" data-t="9" aria-label="3단계 상단 탭에서 비교과프로그램 클릭, 영상 0:09부터 보기">3</button><b>상단 탭에서 비교과프로그램 클릭</b><span class="ts">▶ 0:09</span></li><li class="node"><button class="dot" data-seek="history" data-t="12" aria-label="4단계 왼쪽 신청/이수현황 클릭, 영상 0:12부터 보기">4</button><b>왼쪽 신청/이수현황 클릭</b><span class="ts">▶ 0:12</span></li><li class="node"><button class="dot" data-seek="history" data-t="14" aria-label="5단계 신청·이수 내역 한 번에 확인, 영상 0:14부터 보기">5</button><b>신청·이수 내역 한 번에 확인</b><span class="ts">▶ 0:14</span></li><li class="node"><button class="dot" data-seek="history" data-t="18" aria-label="6단계 이수/미이수 상태까지 확인, 영상 0:18부터 보기">6</button><b>이수/미이수 상태까지 확인</b><span class="ts">▶ 0:18</span></li><li class="node"><button class="dot" data-seek="history" data-t="21" aria-label="7단계 체크하고 출력 버튼, 영상 0:21부터 보기">7</button><b>체크하고 출력 버튼</b><span class="ts">▶ 0:21</span></li><li class="node goal"><button class="dot" data-seek="history" data-t="25" aria-label="8단계 비교과 이수확인서 출력, 영상 0:25부터 보기">🏁</button><b>비교과 이수확인서 출력</b><span class="ts">▶ 0:25</span></li></ol></div>
+            <div class="center"><a class="btn ice" href="#youtube/history">영상으로 보기</a> <a class="btn line" href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">SNOWISE 열기 ↗</a></div>
+              </div>
+            </details>
+            <details class="brow">
+              <summary><b>AI 코칭으로 자소서·이력서</b><span>내 이력으로 초안 받기</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">단계를 누르면 그 장면부터 영상이 재생돼요.</p>
+            <div class="road"><svg class="path" aria-hidden="true"></svg><ol><li class="node"><button class="dot" data-seek="ai" data-t="3" aria-label="1단계 숙명포털 로그인, 영상 0:03부터 보기">1</button><b>숙명포털 로그인</b><span class="ts">▶ 0:03</span></li><li class="node"><button class="dot" data-seek="ai" data-t="5" aria-label="2단계 구글 OTP로 2차 인증, 영상 0:05부터 보기">2</button><b>구글 OTP로 2차 인증</b><span class="ts">▶ 0:05</span></li><li class="node"><button class="dot" data-seek="ai" data-t="7" aria-label="3단계 포털에서 SNOWISE 클릭, 영상 0:07부터 보기">3</button><b>포털에서 SNOWISE 클릭</b><span class="ts">▶ 0:07</span></li><li class="node"><button class="dot" data-seek="ai" data-t="9" aria-label="4단계 AI추천 → AI 코칭 들어가기, 영상 0:09부터 보기">4</button><b>AI추천 → AI 코칭 들어가기</b><span class="ts">▶ 0:09</span></li><li class="node"><button class="dot" data-seek="ai" data-t="11" aria-label="5단계 코치 15명 중 골라잡기, 영상 0:11부터 보기">5</button><b>코치 15명 중 골라잡기</b><span class="ts">▶ 0:11</span></li><li class="node"><button class="dot" data-seek="ai" data-t="13" aria-label="6단계 고민을 편하게 적기, 영상 0:13부터 보기">6</button><b>고민을 편하게 적기</b><span class="ts">▶ 0:13</span></li><li class="node"><button class="dot" data-seek="ai" data-t="18" aria-label="7단계 AI 코칭 요청하기, 영상 0:18부터 보기">7</button><b>AI 코칭 요청하기</b><span class="ts">▶ 0:18</span></li><li class="node goal"><button class="dot" data-seek="ai" data-t="20" aria-label="8단계 나만의 리포트 완성, 영상 0:20부터 보기">🏁</button><b>나만의 리포트 완성</b><span class="ts">▶ 0:20</span></li></ol></div>
+            <div class="center"><a class="btn ice" href="#youtube/ai">영상으로 보기</a> <a class="btn line" href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">SNOWISE 열기 ↗</a></div>
+              </div>
+            </details>
+            <details class="brow">
+              <summary><b>리더십그룹·학회 활동확인서</b><span>동아리·학회 활동 증명</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">내가 활동한 동아리, 학회, 리더십그룹 기록을 확인서로 받을 수 있어요.</p>
+            <ol class="steps4">
+              <li>SNOWISE에 로그인해요.</li>
+              <li><b>학생지원</b> 메뉴에서 리더십그룹·동아리 활동 내역을 확인해요.</li>
+              <li>필요한 활동을 골라 활동확인서를 출력해요.</li>
+            </ol>
+            <p class="hint">이미 탈퇴한 그룹의 확인서는 출력 오류를 고치는 중이에요. 급하면 학생경력설계팀(02-2077-7136)으로 연락하면 확인서를 보내 드려요.</p>
+            <div class="center"><a class="btn line" href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">SNOWISE 열기 ↗</a></div>
+              </div>
+            </details>
+            <details class="brow">
+              <summary><b>취창업 공고 보기</b><span>채용·공모 공고 모아 보기</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">상단 <b>취창업</b> 메뉴에 채용·공모 공고가 올라와요. 밖에서 찾기 어려운 공고도 자주 올라오니 자주 들여다보는 게 이득이에요.</p>
+            <div class="center"><a class="btn ice" href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">취창업 공고 보러 가기 ↗</a></div>
+              </div>
+            </details>
+            <details class="brow">
+              <summary><b>「가입 신청 기간이 아닙니다」</b><span>학회·그룹 가입이 막힐 때</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">학회·리더십그룹 가입 신청은 그룹 관리자가 신청 기간을 열어야 가능해요. 기간이 설정돼 있지 않으면 이 안내가 떠요.</p>
+            <ol class="steps4">
+              <li>소속 학회·그룹 회장이나 담당 부서에 신청 기간 설정을 요청해요.</li>
+              <li>관리자가 관리자 화면에서 그룹의 가입 신청 기간을 지정해요.</li>
+              <li>기간이 열리면 학생 화면에서 바로 신청할 수 있어요.</li>
+            </ol>
+            <p class="hint">관리자 쪽 설정 방법은 「교직원용」 탭에 정리해 뒀어요.</p>
+              </div>
+            </details>
+          </div></div>
+          <div class="sub-block on" data-s="home">
+            <div class="scnav"><button class="scb on" data-sc="main">메인 홈</button><button class="scb" data-sc="p">비교과프로그램</button><button class="scb" data-sc="c">취창업</button></div>
+            <div class="screen on" data-sc="main"><div class="shot big">
+            <img loading="lazy" decoding="async" src="assets/img/04.webp" alt="SNOWISE 학생용 홈 화면">
+            <button class="pin" style="left:38%;top:4.5%" data-i="1" aria-label="상단 메뉴"><span>1</span></button><button class="pin" style="left:22%;top:25%" data-i="2" aria-label="내 정보 카드"><span>2</span></button><button class="pin" style="left:47%;top:41%" data-i="3" aria-label="나의 SNOWISE"><span>3</span></button><button class="pin" style="left:39%;top:63%" data-i="4" aria-label="비교과 신청 현황"><span>4</span></button><button class="pin" style="left:57%;top:68%" data-i="5" aria-label="나의 역량"><span>5</span></button><button class="pin" style="left:22%;top:66%" data-i="6" aria-label="나의 마일리지"><span>6</span></button><button class="pin" style="left:75%;top:76%" data-i="7" aria-label="상담 현황"><span>7</span></button><button class="pin" style="left:93%;top:60%" data-i="8" aria-label="AI추천 성향진단"><span>8</span></button><button class="pin" style="left:96%;top:84%" data-i="9" aria-label="AI 챗봇 튜리"><span>9</span></button><button class="pin" style="left:76%;top:46%" data-i="10" aria-label="마이캘린더 · 알림"><span>10</span></button>
+            <div class="callout" id="callout" hidden><b><span id="coNum">1</span><span id="coTitle"></span></b><p id="coDesc"></p></div>
+          </div>
+          <p class="hint">번호를 눌러 보세요. 아래 목록을 눌러도 같은 칸이 표시돼요.</p>
+          <ol class="spots two"><li data-i="1"><b><span>1</span>상단 메뉴</b><p>마이페이지·비교과프로그램·상담·진로설계·역량개발·취창업·학생지원·AI추천·커뮤니티. 필요한 메뉴는 여기서 바로 들어가요.</p></li><li data-i="2"><b><span>2</span>내 정보 카드</b><p>학번, 학부·학년, 평균학점, 총 이수학점이 한 장에 정리돼 있어요.</p></li><li data-i="3"><b><span>3</span>나의 SNOWISE</b><p>이력서·자기소개서·e-포트폴리오 작성 건수예요. 화살표를 누르면 바로 작성 화면으로 넘어가요.</p></li><li data-i="4"><b><span>4</span>비교과 신청 현황</b><p>신청·참여중·이수 건수를 한눈에 봐요. 이수 건수가 이수확인서로 출력되는 항목이에요.</p></li><li data-i="5"><b><span>5</span>나의 역량</b><p>5개 역량 그래프예요. 아래 「2026 역량진단 검사」로 검사를 시작해요.</p></li><li data-i="6"><b><span>6</span>나의 마일리지</b><p>개인비교과·그룹비교과·인센티브 마일리지가 쌓여요. 잔여 점수도 여기서 확인해요.</p></li><li data-i="7"><b><span>7</span>상담 현황</b><p>예약확정·상담완료 건수예요. 상담 신청도 이 카드에서 이어져요.</p></li><li data-i="8"><b><span>8</span>AI추천 성향진단</b><p>성향 분석을 바탕으로 나에게 맞는 비교과와 취창업 분야를 추천받아요.</p></li><li data-i="9"><b><span>9</span>AI 챗봇 튜리</b><p>어디서든 떠 있는 튜리예요. 궁금한 걸 바로 물어볼 수 있어요.</p></li><li data-i="10"><b><span>10</span>마이캘린더 · 알림</b><p>내 일정과 마이크로디그리, 새 알림을 확인해요.</p></li></ol>
+            <p class="hint">번호를 눌러 보세요. 아래 목록을 눌러도 같은 칸이 표시돼요.</p></div>
+          <div class="screen" data-sc="p"><div class="shot big"><img loading="lazy" decoding="async" src="assets/img/05.webp" alt="SNOWISE 비교과프로그램 화면"><button class="pin" style="left:36%;top:9%" data-i="p1" aria-label="정렬 탭"><span>1</span></button><button class="pin" style="left:84%;top:9%" data-i="p2" aria-label="프로그램 검색"><span>2</span></button><button class="pin" style="left:17%;top:25%" data-i="p3" aria-label="분류 메뉴"><span>3</span></button><button class="pin" style="left:50%;top:17%" data-i="p4" aria-label="마일리지 배지"><span>4</span></button><button class="pin" style="left:44%;top:43%" data-i="p5" aria-label="신청 현황"><span>5</span></button><button class="pin" style="left:44%;top:52%" data-i="p6" aria-label="신청기간·진행기간"><span>6</span></button></div><p class="hint">번호를 눌러 보세요.</p><ol class="spots two"><li data-i="p1"><b><span>1</span>정렬 탭</b><p>신청마감순·최신등록순·과정명순으로 목록 순서를 바꿔요. 마감 임박한 것부터 보려면 신청마감순.</p></li><li data-i="p2"><b><span>2</span>프로그램 검색</b><p>프로그램 이름으로 바로 찾아요.</p></li><li data-i="p3"><b><span>3</span>분류 메뉴</b><p>전체 / 직원 프로그램 / 일반 비교과로 나눠서 볼 수 있어요.</p></li><li data-i="p4"><b><span>4</span>마일리지 배지</b><p>카드 오른쪽 위 「M +2000」은 이수하면 받는 마일리지예요.</p></li><li data-i="p5"><b><span>5</span>신청 현황</b><p>현재 신청 인원과 정원, 대기 인원이 막대로 보여요. 정원이 차면 대기로 신청돼요.</p></li><li data-i="p6"><b><span>6</span>신청기간·진행기간</b><p>신청은 언제까지, 프로그램은 언제 진행되는지 한 줄로 확인해요.</p></li></ol></div><div class="screen" data-sc="c"><div class="shot big"><img loading="lazy" decoding="async" src="assets/img/06.webp" alt="SNOWISE 취창업 화면"><button class="pin" style="left:46%;top:14%" data-i="c1" aria-label="채용정보"><span>1</span></button><button class="pin" style="left:60%;top:10%" data-i="c2" aria-label="관심 공고"><span>2</span></button><button class="pin" style="left:46%;top:45%" data-i="c3" aria-label="추천채용"><span>3</span></button><button class="pin" style="left:78%;top:17%" data-i="c4" aria-label="취업지원 제휴 서비스"><span>4</span></button><button class="pin" style="left:78%;top:55%" data-i="c5" aria-label="기관 연계 서비스"><span>5</span></button><button class="pin" style="left:60%;top:88%" data-i="c6" aria-label="하단 바로가기"><span>6</span></button><button class="pin" style="left:18%;top:82%" data-i="c7" aria-label="배너"><span>7</span></button></div><p class="hint">번호를 눌러 보세요.</p><ol class="spots two"><li data-i="c1"><b><span>1</span>채용정보</b><p>학교로 들어온 채용 공고가 마감 임박순으로 떠요. D-2처럼 남은 날짜가 함께 보여요.</p></li><li data-i="c2"><b><span>2</span>관심 공고</b><p>하트를 누르면 관심 공고로 모아둘 수 있어요.</p></li><li data-i="c3"><b><span>3</span>추천채용</b><p>내 전공·관심 분야에 맞춰 추천된 공고가 올라오는 자리예요.</p></li><li data-i="c4"><b><span>4</span>취업지원 제휴 서비스</b><p>EDUCE(AI 취업솔루션), 나임(AI 자기소개서·면접), 잡플래닛(기업리뷰·면접후기)을 바로 열 수 있어요.</p></li><li data-i="c5"><b><span>5</span>기관 연계 서비스</b><p>현장실습지원시스템, 경력개발처, 고용24, 청년몽땅정보통으로 연결돼요.</p></li><li data-i="c6"><b><span>6</span>하단 바로가기</b><p>기업정보 · 정보광장 · 취업홍보대사 뉴스 · 숙명포털로 이동해요.</p></li><li data-i="c7"><b><span>7</span>배너</b><p>SM-bridge 선배 멘토링처럼 진행 중인 프로그램 소식이 걸려요.</p></li></ol></div>
+          </div>
+
+          <div class="sub-block" data-s="reco">
+            <div class="board">
+              <details class="brow">
+                <summary><b>나한테 맞는 비교과, 어떻게 찾아요?</b><span>AI 추천으로 골라 보기</span></summary>
+                <div class="bbody">
+                  <p class="lead">SNOWISE가 내 활동 기록과 관심 키워드를 보고 프로그램을 추천해 줘요.</p>
+                  <ol class="steps4">
+                    <li>SNOWISE에 로그인해요.</li>
+                    <li><b>AI추천</b>에서 성향 진단을 해요.</li>
+                    <li>추천 목록에서 관심 있는 프로그램을 골라 신청해요.</li>
+                  </ol>
+                  <p class="hint">추천 화면의 정확한 메뉴명을 알려 주면 그대로 맞출게요.</p>
+                  <div class="center"><a class="btn ice" href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">추천 받으러 가기 ↗</a></div>
+                </div>
+              </details>
+              <details class="brow">
+                <summary><b>비교과 마일리지는 뭐예요?</b><span>개인·그룹·인센티브</span></summary>
+                <div class="bbody"><p class="lead">비교과 프로그램에 참여하면 마일리지가 쌓여요. 홈 화면 「나의 마일리지」에서 잔여 점수를 확인할 수 있어요.</p></div>
+              </details>
+            </div></div>
+          <div class="callbox">
+            <b>📣 송이들의 집단지성이 필요해!</b>
+            <span>여기 없는 질문이 있다면 학생경력설계팀으로 제보해 줘. 튜리가 틈틈이 모아서 한입으로 만들어 둘게.</span>
+            <a href="mailto:snowise@sookmyung.ac.kr">snowise@sookmyung.ac.kr 로 제보하기 ↗</a>
+          </div>
+        </div>
+
+        <div class="pane" data-p="prof">
+          <div class="intro">
+            <img loading="lazy" decoding="async" src="assets/img/01.webp" alt="">
+            <p>교수님, 상담은 이미 마치셨는데 입력이 어디였는지 몰라 로그인만 하고 나가신 적 있으시죠? 지도학생 명단 보기부터 상담결과 등록, 예약 상담 여는 법까지 — 교수님들께서 가장 많이 물어보신 것만 실제 화면 그대로 정리해 두었어요. 궁금한 항목만 눌러 보시면 되고, 카드뉴스는 옆으로 넘겨 보실 수 있어요 ❄️</p>
+          </div>
+          <div class="subnav"><button class="snav on" data-g="prof" data-s="advise"><span class="ic">🧑‍🏫</span><b>지도학생 상담</b><em>상담 내용 입력</em></button><button class="snav" data-g="prof" data-s="warn"><span class="ic">⚠️</span><b>성적경고생 상담</b><em>대상 확인과 기록</em></button><button class="snav" data-g="prof" data-s="book"><span class="ic">📅</span><b>예약 상담</b><em>신청 확인과 일정</em></button></div>
+          <div class="sub-block on" data-s="advise">
+            <div class="board">
+              <details class="brow" open>
+                <summary><b>지도학생 상담, 어디서 어떻게 하나요?</b><span>상담 &gt; 교수상담 &gt; 지도학생관리</span></summary>
+                <div class="bbody split2">
+                  <div class="rightcol">
+                  <table class="ptable">
+                    <tr><th>지도학생 명단 보기</th><td>상담 &gt; 교수상담 &gt; <b>지도학생관리</b></td></tr>
+                    <tr><th>학생 그룹 바꾸기</th><td>맨 위 탭 — 평생지도 · 소속학과 · 성적경고 · 유학생</td></tr>
+                    <tr><th>학생 찾기</th><td>검색 — 학년도·학기·학적·학년·학생명으로 좁히기</td></tr>
+                    <tr><th>학생 자세히 보기</th><td>이름 클릭 → 신상정보와 교내 활동 이력</td></tr>
+                    <tr><th>지난 상담 보기</th><td>상담이력 「n건」 클릭</td></tr>
+                    <tr><th>상담 한 명 입력</th><td>줄 맨 오른쪽 <b>상담결과 등록</b></td></tr>
+                    <tr><th>여러 명 한꺼번에</th><td>목록 위 오른쪽 <b>일괄상담등록</b></td></tr>
+                    <tr><th>입력이 잘 됐는지</th><td>교수상담 &gt; <b>상담실적/상담결과입력</b></td></tr>
+                  </table>
+                  <p class="hint">아직 상담하지 않은 학생은 상담이력이 「0건」으로 보여서, 누구를 먼저 만나야 할지 바로 알 수 있어요.</p>
+                  </div>
+                  <div class="gal cards">
+                    <div class="strip"><figure><img loading="lazy" decoding="async" src="assets/img/07.webp" alt="상담입력, 어렵지 않아요"><figcaption>상담입력, 어렵지 않아요</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/08.webp" alt="Q1 어디로 들어가나요"><figcaption>Q1 어디로 들어가나요</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/09.webp" alt="Q2 학생 그룹 탭"><figcaption>Q2 학생 그룹 탭</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/10.webp" alt="Q3 검색으로 좁히기"><figcaption>Q3 검색으로 좁히기</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/11.webp" alt="Q5 학생 자세히 보기"><figcaption>Q5 학생 자세히 보기</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/12.webp" alt="Q6 지난 상담 보기"><figcaption>Q6 지난 상담 보기</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/13.webp" alt="Q7 상담결과 등록"><figcaption>Q7 상담결과 등록</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/14.webp" alt="Q8 일괄상담등록"><figcaption>Q8 일괄상담등록</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/15.webp" alt="Q10 입력 확인"><figcaption>Q10 입력 확인</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/16.webp" alt="Q11 예약 상담"><figcaption>Q11 예약 상담</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/17.webp" alt="Q12 한눈에 정리"><figcaption>Q12 한눈에 정리</figcaption></figure></div>
+                    <button class="nav prev" aria-label="이전">‹</button>
+                    <button class="nav next" aria-label="다음">›</button>
+                    <div class="dots"><button aria-label="1번째 카드"></button><button aria-label="2번째 카드"></button><button aria-label="3번째 카드"></button><button aria-label="4번째 카드"></button><button aria-label="5번째 카드"></button><button aria-label="6번째 카드"></button><button aria-label="7번째 카드"></button><button aria-label="8번째 카드"></button><button aria-label="9번째 카드"></button><button aria-label="10번째 카드"></button><button aria-label="11번째 카드"></button></div>
+                    <p class="hint">카드뉴스 「SNOWISE 지도학생관리 A to Z」 — 옆으로 밀어서 보세요.</p>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </div>
+          <div class="sub-block" data-s="warn">
+            <div class="board">
+              <details class="brow">
+                <summary><b>성적경고생 상담</b><span>대상 확인과 상담 기록</span></summary>
+                <div class="bbody"><p class="lead">대상 학생을 어디서 확인하고 어떤 항목을 입력하는지 알려 주시면 단계로 정리할게요.</p></div>
+              </details>
+            </div></div>
+          <div class="sub-block" data-s="book">
+            <div class="board">
+              <details class="brow">
+                <summary><b>예약을 받아서 상담하고 싶어요</b><span>마이페이지에서 켜고, 상담캘린더에 일정 등록</span></summary>
+                <div class="bbody">
+                  <table class="ptable">
+                    <tr><th>1. 마이페이지</th><td>예약상담 <b>사용</b>으로 설정 (교수님이 직접)</td></tr>
+                    <tr><th>2. 상담캘린더</th><td>상담 가능한 기간 · 요일 · 시간 · 인원 등록</td></tr>
+                    <tr><th>3. 학생</th><td>열린 시간에 예약 → 교수님은 상담 후 결과만 입력</td></tr>
+                  </table>
+                  <p class="hint">상담캘린더(예약상담용)에서 예약 현황을 보고 바로 결과도 등록할 수 있어요.</p>
+                </div>
+              </details>
+            </div></div>
+        </div>
+
+        <div class="pane" data-p="staff">
+          <div class="intro">
+            <img loading="lazy" decoding="async" src="assets/img/01.webp" alt="">
+            <p>선생님, 같은 문의가 반복해서 들어오는 항목만 모았어요. 리더십그룹 회원관리, 가입 신청 기간 설정, 상담 관리, 커뮤니티 Q&amp;A — 화면 경로까지 적어 뒀으니 학생이나 교수님께 그대로 복사해서 안내하셔도 됩니다. 빠진 게 있으면 학생경력설계팀으로 알려 주세요 ❄️</p>
+          </div>
+          <div class="board">
+            <details class="brow">
+              <summary><b>리더십그룹 회원관리</b><span>직책 변경 · 신입 · 탈퇴</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">회장 등 직책 변경, 신입회원 등록, 탈퇴회원 관리는 관리자 화면에서 해요.</p>
+            <ol class="steps4">
+              <li>학과·단과대 계정으로 SNOWISE에 접속해요.</li>
+              <li>우측 상단 <b>관리자전환</b> 버튼을 눌러 관리자 화면으로 들어가요.</li>
+              <li><b>학생지원 &gt; 리더십그룹관리 &gt; 리더십그룹 회원관리</b>에서 학생 직책을 바꾸고 확인해요.</li>
+              <li>같은 화면에서 신입회원 등록과 탈퇴회원 정리도 해요.</li>
+            </ol>
+            <p class="hint">관리자전환 버튼이 안 보이면 계정 권한 문제예요. 학생경력설계팀으로 문의해 주세요.</p>
+              </div>
+            </details>
+            <details class="brow">
+              <summary><b>가입 신청 기간 설정</b><span>「신청 기간이 아닙니다」 해결</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">학생 화면에 「가입 신청 기간이 아닙니다」가 뜨면, 그 그룹의 가입 신청 기간이 열려 있지 않은 거예요.</p>
+            <ol class="steps4">
+              <li>관리자전환 후 <b>학생지원 &gt; 리더십그룹관리</b>로 들어가요.</li>
+              <li>해당 그룹에서 가입 신청 기간을 지정해요. <b>[정확한 화면·버튼 이름을 알려 주면 채울게요]</b></li>
+              <li>기간을 저장하면 학생 화면에서 바로 신청할 수 있어요.</li>
+            </ol>
+              </div>
+            </details>
+            <details class="brow">
+              <summary><b>상담 관리</b><span>신청 확인과 배정</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">어떤 화면에서 무엇을 처리하는지 알려 주면 단계로 정리할게요. (신청 확인, 상담사 배정, 완료 처리 등)</p>
+              </div>
+            </details>
+            <details class="brow">
+              <summary><b>커뮤니티 Q&amp;A</b><span>학생 문의에 답변</span></summary>
+              <div class="bbody">
+            
+            <p class="lead">커뮤니티에 올라온 학생 질문을 확인하고 답변을 남기는 곳이에요. 실제 메뉴 경로를 주면 단계까지 채울게요.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- 포트폴리오 -->
+      <section class="view" id="v-folio" data-title="포트폴리오 작성">
+        <header class="pg-h"><small>PORTFOLIO</small><h2>포트폴리오 작성</h2></header>
+        <div class="intro">
+          <img loading="lazy" decoding="async" src="assets/img/01.webp" alt="">
+          <p>「나 뭐 했지…」 싶을 때가 제일 막막하지. 다행히 송이들이 들은 비교과, 현장실습, 글로벌 프로그램은 SNOWISE에 이미 다 쌓여 있어. 거기서 <b>두 개 이상 섹션을 골라 연동</b>하면 자기소개서랑 이력서 초안이 만들어져. 처음부터 백지에 쓰지 않아도 되는 거야 🤍</p>
+        </div>
+
+        <div class="twostep three">
+          <div class="st"><span class="num">1</span><b>내 이력 확인</b><p>비교과·현장실습·자격증 등 쌓인 기록을 먼저 훑어봐요.</p><span class="tagline">STEP 1</span></div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="st key2"><span class="num">2</span><b>섹션 2개 이상 연동</b><p>포트폴리오에서 쓸 섹션을 골라 자기소개서·이력서에 이어 붙여요.</p><span class="tagline gift-tag">여기가 핵심</span></div>
+          <span class="arrow" aria-hidden="true">→</span>
+          <div class="st pro2"><span class="num">3</span><b>AI 코칭으로 다듬기</b><p>튜리에게 코칭을 받아 문장을 고치고 완성해요.</p><span class="tagline">마무리</span></div>
+        </div>
+
+        <div class="board">
+          <details class="brow">
+            <summary><b>어디서 쓰나요?</b><span>SNOWISE 로그인 후 포트폴리오</span></summary>
+            <div class="bbody">
+              <ol class="steps4">
+                <li>숙명포털 계정으로 SNOWISE에 로그인해요.</li>
+                <li>홈 화면 「나의 SNOWISE」에서 이력서·자기소개서·e-포트폴리오 건수를 확인해요.</li>
+                <li>포트폴리오에서 섹션을 고르고, 자기소개서·이력서로 이어서 작성해요.</li>
+              </ol>
+              <p class="hint">정확한 메뉴명을 알려 주면 화면 그대로 맞춰서 채울게요.</p>
+              <div class="center"><a class="btn ice" href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">SNOWISE 열기 ↗</a></div>
+            </div>
+          </details>
+          <details class="brow">
+            <summary><b>AI 코칭은 어떻게 받나요?</b><span>코치 15명 중 골라서 고민 적기</span></summary>
+            <div class="bbody">
+              <p class="lead">AI추천 → AI 코칭에서 코치를 고르고 고민을 적으면, 내 활동을 바탕으로 리포트가 나와요. 단계별 로드맵과 시연영상으로 볼 수 있어요.</p>
+              <div class="center"><a class="btn ice" href="#guide/student">로드맵 보기</a> <a class="btn line" href="#youtube/ai">시연영상 보기</a></div>
+            </div>
+          </details>
+          <details class="brow">
+            <summary><b>왜 미리 써 둬야 하나요?</b><span>모집 뜨고 쓰면 늦어요</span></summary>
+            <div class="bbody">
+              <p class="lead">현장실습·인턴 모집은 보통 실습 학기보다 두 달 먼저 시작돼요. 공고가 뜬 뒤에 쓰기 시작하면 이미 늦어요. 자기소개서·이력서·증명사진은 미리 최신으로 맞춰 두는 게 안전해요.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="callbox">
+          <b>🏆 포트폴리오 공모전, 곧 열려</b>
+          <span>여기서 쓴 포트폴리오를 그대로 낼 수 있어. 행성주 이벤트 3단계도 같은 작업이니까, 미리 해두면 그대로 이어져.</span>
+          <a href="#haeng/event">행성주 이벤트 보기 →</a>
+        </div>
+      </section>
+
+      <!-- 뉴스레터 -->
+      <section class="view" id="v-newsletter" data-title="뉴스레터">
+        <header class="pg-h"><small>NEWSLETTER</small><h2>취뽀송이</h2><p class="pg-sub">송이들 학교생활 → 커리어, 튜리가 대신 챙김 · 매주 금요일 경력개발처 블로그 발행</p></header>
+        <div class="thumbs">
+          <article class="th">
+            <button class="zoom" data-zoom="assets/img/18.webp" aria-label="취뽀송이 Vol.2 표지 크게 보기"><img loading="lazy" decoding="async" src="assets/img/18.webp" alt="취뽀송이 Vol.2 표지"></button>
+            <div class="tt">
+              <small>VOL.2 · 9/19 FRI <span class="new">NEW</span></small>
+              <h3>왔다, 내 행성주!</h3>
+              <div class="tags"><span>행성주</span><span>한입SNOWISE</span><span>현장실습</span><span>하버드</span></div>
+              <a class="btn line off" href="#" aria-disabled="true">블로그 링크 준비 중</a>
+            </div>
+          </article>
+          <article class="th">
+            <button class="zoom" data-zoom="assets/img/19.webp" aria-label="취뽀송이 Vol.1 표지 크게 보기"><img loading="lazy" decoding="async" src="assets/img/19.webp" alt="취뽀송이 Vol.1 표지"></button>
+            <div class="tt">
+              <small>VOL.1 · 9/12 FRI</small>
+              <h3>스노웨이 + 와이즈 = SNOWISE 오픈!</h3>
+              <div class="tags"><span>SNOWISE 오픈</span><span>한입SNOWISE</span><span>현장실습</span></div>
+              <a class="btn line off" href="#" aria-disabled="true">블로그 링크 준비 중</a>
+            </div>
+          </article>
+          <article class="th next">
+            <div class="ph"><span>VOL.3</span><p>다음 금요일에<br>만나요</p></div>
+            <div class="tt"><small>COMING SOON</small><h3>다음 호 준비 중</h3></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 시연영상 -->
+      <section class="view" id="v-youtube" data-title="학생경력설계팀 유튜브" data-tabs='[["channel","채널 홈"],["history","한입 EP.1"],["ai","AI 코칭"]]'>
+        <div class="pane on" data-p="channel">
+          <div class="ch-banner">
+            <img loading="lazy" decoding="async" class="ch-av" src="assets/img/01.webp" alt="">
+            <div>
+              <small>YOUTUBE</small>
+              <h2>숙명여대 학생경력설계팀</h2>
+              <p>SNOWISE 사용법부터 비교과·커리어 소식까지, 짧고 쉽게 보여 드려요.</p>
+            </div>
+            <a class="sub-btn off" href="#" aria-disabled="true">채널 링크 준비 중</a>
+          </div>
+
+          <h3 class="ch-t">대표 영상</h3>
+          <a class="feat" href="https://youtu.be/uZy-9Vdb0Cc" target="_blank" rel="noopener">
+            <div class="ft-thumb"><img loading="lazy" decoding="async" src="assets/img/02.webp" alt=""><span class="pbtn"></span></div>
+            <div class="ft-txt">
+              <h4>AI 데이터로 시작하는 눈송이 커리어 성장 로드맵 | SNOWISE 오픈</h4>
+              <p>1만 2천 눈송이의 활동 데이터를 한눈에. 숙명여대 학생성장 통합시스템 SNOWISE를 소개합니다.</p>
+              <span class="yt-go">YouTube에서 보기 ↗</span>
+            </div>
+          </a>
+
+          <h3 class="ch-t">쇼츠 · 한입 SNOWISE</h3>
+          <div class="shorts">
+            <a href="#youtube/history"><img loading="lazy" decoding="async" src="assets/img/20.jpg" alt=""><b>내가 들은 비교과, 어디서 보지?</b><span>한입 SNOWISE EP.1 · 0:32</span></a>
+            <a href="#youtube/ai"><img loading="lazy" decoding="async" src="assets/img/21.jpg" alt=""><b>진로 고민, 튜리한테 물어봄</b><span>AI 코칭 · 0:30</span></a>
+            <div class="soon-s"><b>EP.2</b><span>이 이력으로 자소서 쓰기<br>곧 올라와요</span></div>
+          </div>
+        </div>
+        <div class="pane" data-p="history">
+          <div class="player2">
+            <div class="phonef"><video id="vid-history" src="assets/video/01.mp4" poster="assets/img/20.jpg" controls playsinline preload="metadata"></video></div>
+            <div class="chap">
+              <h3>내가 들은 비교과, 어디서 보지?</h3>
+              <p>챕터를 누르면 그 장면으로 넘어가요.</p>
+              <ol><li><button data-seek="history" data-t="3"><span>0:03</span>숙명포털 로그인</button></li><li><button data-seek="history" data-t="6"><span>0:06</span>SNOWISE 입장</button></li><li><button data-seek="history" data-t="9"><span>0:09</span>상단 탭에서 비교과프로그램 클릭</button></li><li><button data-seek="history" data-t="12"><span>0:12</span>왼쪽 신청/이수현황 클릭</button></li><li><button data-seek="history" data-t="14"><span>0:14</span>신청·이수 내역 한 번에 확인</button></li><li><button data-seek="history" data-t="18"><span>0:18</span>이수/미이수 상태까지 확인</button></li><li><button data-seek="history" data-t="21"><span>0:21</span>체크하고 출력 버튼</button></li><li><button data-seek="history" data-t="25"><span>0:25</span>비교과 이수확인서 출력</button></li></ol>
+              <a class="btn line" href="#guide/history">로드맵으로 보기</a>
+            </div>
+          </div>
+        </div>
+        <div class="pane" data-p="ai">
+          <div class="player2">
+            <div class="phonef"><video id="vid-ai" src="assets/video/02.mp4" poster="assets/img/21.jpg" controls playsinline preload="metadata"></video></div>
+            <div class="chap">
+              <h3>진로 고민, 튜리한테 물어봄</h3>
+              <p>챕터를 누르면 그 장면으로 넘어가요.</p>
+              <ol><li><button data-seek="ai" data-t="3"><span>0:03</span>숙명포털 로그인</button></li><li><button data-seek="ai" data-t="5"><span>0:05</span>구글 OTP로 2차 인증</button></li><li><button data-seek="ai" data-t="7"><span>0:07</span>포털에서 SNOWISE 클릭</button></li><li><button data-seek="ai" data-t="9"><span>0:09</span>AI추천 → AI 코칭 들어가기</button></li><li><button data-seek="ai" data-t="11"><span>0:11</span>코치 15명 중 골라잡기</button></li><li><button data-seek="ai" data-t="13"><span>0:13</span>고민을 편하게 적기</button></li><li><button data-seek="ai" data-t="18"><span>0:18</span>AI 코칭 요청하기</button></li><li><button data-seek="ai" data-t="20"><span>0:20</span>나만의 리포트 완성</button></li></ol>
+              <a class="btn line" href="#guide/ai">로드맵으로 보기</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 행성주 -->
+      <section class="view" id="v-haeng" data-title="2026-2 숙명행복성장주간" data-tabs='[["poster","부스 안내"],["event","SNOWISE 이벤트"],["goods","굿즈"]]'>
+        <header class="pg-h"><small>2026-2 숙명행복성장주간</small><h2 class="hand big-hand">왔다, 내 행성주!</h2><p class="pg-sub">9월 29일(화)~30일(수) 10:30~16:30 · 순헌관 광장 · 사전신청 없이 그냥 오면 돼요</p></header>
+
+        <!-- 부스 안내 -->
+        <div class="pane on" data-p="poster">
+          <div class="boothwrap">
+            <div class="gal">
+              <div class="strip" id="strip"><figure><img loading="lazy" decoding="async" src="assets/img/22.webp" alt="학생경력설계팀 포스터"><figcaption>학생경력설계팀 · 9/29~30</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/23.webp" alt="초성맞추기 QUIZ 포스터"><figcaption>초성맞추기 QUIZ</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/24.webp" alt="경력개발처 부스 통합 포스터"><figcaption>경력개발처 부스 한눈에</figcaption></figure><figure><img loading="lazy" decoding="async" src="assets/img/25.webp" alt="행성주 QR 안내판"><figcaption>QR 안내판</figcaption></figure></div>
+              <button class="nav prev" id="galPrev" aria-label="이전">‹</button>
+              <button class="nav next" id="galNext" aria-label="다음">›</button>
+              <div class="dots" id="galDots"><button data-g="0" aria-label="1번째 이미지"></button><button data-g="1" aria-label="2번째 이미지"></button><button data-g="2" aria-label="3번째 이미지"></button><button data-g="3" aria-label="4번째 이미지"></button></div>
+              <p class="hint">옆으로 밀면 다음 포스터가 나와요.</p>
+            </div>
+
+            <div class="boothside">
+              <a class="lk hi" href="#haeng/event"><em class="badge">EVENT</em><b>SNOWISE 기 살려주기 이벤트!</b><span>초성 퀴즈 풀고 굿즈까지</span><em>보러 가기 →</em></a>
+              <a class="lk" href="#haeng/goods"><b>귀여운 굿즈 보기</b><span>튜리 키링 · 텀블러 파우치</span><em>보러 가기 →</em></a>
+              <a class="lk" href="https://intern.sookmyung.ac.kr" target="_blank" rel="noopener"><b>현장실습지원센터</b><span>산학협력 현장실습 · 인턴십</span><em>바로가기 ↗</em></a>
+
+              <ul class="blist">
+                <li><b>학생경력설계팀 · SNOWISE</b><span class="d both">9/29 · 9/30</span></li>
+                <li><b>현장실습지원센터</b><span class="d">9/29</span></li>
+                <li><b>공공인재양성센터</b><span class="d">9/30</span></li>
+              </ul>
+              <p class="hint" style="text-align:left">모든 부스 10:30~16:30 · 순헌관 광장</p>
+              <div class="smalllinks">
+                <a href="https://m.site.naver.com/2gQ4b" target="_blank" rel="noopener">인스타그램 ↗</a>
+                <a href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">SNOWISE ↗</a>
+                <a href="https://www.sookmyung.ac.kr" target="_blank" rel="noopener">공공인재양성센터 ↗</a>
+                <a href="#guide/student">한입-SNOWISE →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SNOWISE 이벤트 -->
+        <div class="pane" data-p="event">
+          <div class="hero-line">
+            <img loading="lazy" decoding="async" src="assets/img/26.webp" alt="튜리 키링">
+            <div>
+              <em>SNOWISE 부스 · 순헌관 광장</em>
+              <h3><span class="hand">SNOWISE</span> 기 살려주기<br>이벤트!</h3>
+              <p>초성 퀴즈 하나 풀고, SNOWISE에서 키워드만 고르면 끝! 귀여운 굿즈는 덤이에요.</p>
+              <div class="btns2">
+                <a class="btn ice" href="https://m.site.naver.com/2gQ4b" target="_blank" rel="noopener">퀴즈 풀러 가기 ↗</a>
+                <a class="btn line" href="https://m.site.naver.com/2gQ5u" target="_blank" rel="noopener">SNOWISE 열기 ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="twostep three">
+            <div class="st"><span class="num">1</span><b>초성 퀴즈 풀기</b><p>인스타그램에서 미리, 또는 부스 현장에서 바로.</p><span class="tagline">STEP 1</span></div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="st key2"><span class="num">2</span><b>AI 역량검사 + 키워드 설정</b><p>SNOWISE에서 역량검사 한 번, 관심 키워드 체크. 1분이면 끝나요.</p><span class="tagline gift-tag">🎁 여기까지 하면 굿즈 증정</span></div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="st pro2"><span class="num">3</span><b>포트폴리오 작성</b><p>섹션 두 개 이상 연동해서 자기소개서·이력서까지. 공모전에 그대로 낼 수 있어요.</p><span class="tagline">심화 · 선택</span></div>
+          </div>
+
+          <article class="box quizbox">
+            <h3 class="bh"><em>QUIZ</em>튜리 데뷔 응원 프로젝트</h3>
+            <div class="qz">
+              <img loading="lazy" decoding="async" class="qzposter" src="assets/img/23.webp" alt="초성맞추기 QUIZ 포스터">
+              <div>
+                <p class="big">초성맞추기 QUIZ</p>
+                <p>초성을 보고 정답을 맞히면 <b class="hl">참여 완료</b>! 여기서 미리 풀어 볼 수 있어요.</p>
+                <div class="qgame">
+                  <div class="qrow" data-a="스노와이즈">
+                    <span class="cho">ㅅㄴㅇㅇㅈ</span>
+                    <input id="quiz1" type="text" placeholder="정답 입력" aria-label="첫 번째 초성 정답">
+                    <button>확인</button>
+                    <span class="res"></span>
+                  </div>
+                  <div class="qrow" data-a="튜리">
+                    <span class="cho">ㅌㄹ</span>
+                    <input id="quiz2" type="text" placeholder="정답 입력" aria-label="두 번째 초성 정답">
+                    <button>확인</button>
+                    <span class="res"></span>
+                  </div>
+                </div>
+                <p class="hint" style="text-align:left">인스타그램 이벤트 참여는 댓글로! <a class="mini" href="https://m.site.naver.com/2gQ4b" target="_blank" rel="noopener">퀴즈 게시물 ↗</a></p>
+              </div>
+            </div>
+          </article>
+
+          <div class="linkgrid">
+            <a class="lk" href="#haeng/goods"><b>굿즈 구경하기</b><span>튜리 키링 · 텀블러 파우치</span><em>보러 가기 →</em></a>
+            <a class="lk" href="#guide/student"><b>한입-SNOWISE</b><span>SNOWISE가 처음이라면 여기부터</span><em>보러 가기 →</em></a>
+          </div>
+        </div>
+
+        <!-- 굿즈 -->
+        <div class="pane" data-p="goods">
+          <div class="goods big">
+            <figure>
+              <button class="zoom" data-zoom="assets/img/26.webp" aria-label="튜리 키링 크게 보기"><img loading="lazy" decoding="async" src="assets/img/26.webp" alt="튜리 키링"></button>
+              <figcaption><b>튜리 키링</b><span>SNOWISE 부스 이벤트 참여</span><p>SNOWISE 팻말을 든 튜리 금속 키링이에요.</p></figcaption>
+            </figure>
+            <figure>
+              <button class="zoom" data-zoom="assets/img/27.webp" aria-label="텀블러 파우치 크게 보기"><img loading="lazy" decoding="async" src="assets/img/27.webp" alt="텀블러 파우치"></button>
+              <figcaption><b>텀블러 파우치</b><span>SNOWISE 부스 이벤트 참여</span><p>SNOWISE 로고를 넣은 아이보리 골지 파우치예요.</p></figcaption>
+            </figure>
+          </div>
+          <p class="hint">굿즈 이미지는 디자인 시안이라 실제 제품과 다를 수 있어요. 수량이 한정되어 있어 조기 마감될 수 있어요.</p>
+          <div class="linkgrid">
+            <a class="lk hi" href="#haeng/event"><b>어떻게 받나요?</b><span>3단계 이벤트에서 받는 방법 보기</span><em>보러 가기 →</em></a>
+            <a class="lk" href="#guide/student"><b>한입-SNOWISE</b><span>SNOWISE 사용법을 한입씩</span><em>보러 가기 →</em></a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<nav class="appbar" aria-label="하단 메뉴">
+        <a href="#home" data-r="home"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>홈</a>
+        
+        <a href="#about" data-r="about"><svg viewBox="0 0 24 24"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"/><path d="M12 8v8M8.5 10l7 4M15.5 10l-7 4"/></svg>소개</a>
+        <a href="#haeng" data-r="haeng"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/></svg>행성주</a>
+        <a href="#guide" data-r="guide"><svg viewBox="0 0 24 24"><path d="M4 5h11l5 5v9H4z"/><path d="M8 11h8M8 15h5"/></svg>한입-SNOWISE</a>
+        <a href="#folio" data-r="folio"><svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 13h8M8 17h5"/></svg>포폴</a>
+        <a href="#newsletter" data-r="newsletter"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>뉴스레터</a>
+        <a href="#youtube" data-r="youtube"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.2l5 2.8-5 2.8z"/></svg>유튜브</a>
+        
+      </nav>
+
+<dialog id="lb" aria-label="이미지 크게 보기"><img loading="lazy" decoding="async" alt=""><button aria-label="닫기">✕</button></dialog>
+
+<script>
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// 하늘: 눈 + 반짝임
+const sky=document.getElementById('sky');
+if(!reduce){
+  for(let i=0;i<45;i++){const e=document.createElement('i');const s=2+Math.random()*5;
+    e.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.2+Math.random()*.5};animation-duration:${10+Math.random()*14}s;animation-delay:${-Math.random()*24}s`;sky.appendChild(e);}
+}
+[[8,22,18],[30,88,14],[52,4,12],[70,78,20],[92,30,16],[62,94,12],[18,60,10]].forEach(([x,y,z],i)=>{
+  const b=document.createElement('b');b.textContent='✦';b.style.cssText=`left:${x}%;top:${y}%;font-size:${z}px;animation-delay:${i*.4}s`;sky.appendChild(b);});
+
+// 낙엽
+const leaves=document.getElementById('leaves');
+if(!reduce){
+  const cols=['#e0621f','#f2a33a','#c9531b','#e8903a','#b8491a'];
+  for(let i=0;i<22;i++){const e=document.createElement('i');const z=10+Math.random()*14;
+    e.style.cssText=`left:${Math.random()*100}%;width:${z}px;height:${z}px;background:${cols[i%5]};opacity:${.35+Math.random()*.4};animation-duration:${12+Math.random()*12}s;animation-delay:${-Math.random()*24}s`;leaves.appendChild(e);}
+}
+// 라우팅
+const ROUTES=['home','about','guide','folio','newsletter','youtube','haeng'];
+const seg=document.getElementById('seg'), crumb=document.getElementById('crumb');
+function setPane(view,p){
+  view.querySelectorAll('.pane').forEach(x=>x.classList.toggle('on',x.dataset.p===p));
+  seg.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.p===p));
+  document.querySelectorAll('video').forEach(v=>{ if(!v.closest('.pane.on')||!v.closest('.view.on')) v.pause(); });
+  if(view.id==='v-guide') requestAnimationFrame(drawRoads);
+}
+function route(){
+  const [r0,p0]=location.hash.slice(1).split('/');
+  const r=ROUTES.includes(r0)?r0:'home';
+  let view;
+  document.querySelectorAll('.view').forEach(v=>{const on=v.id==='v-'+r; v.classList.toggle('on',on); if(on){view=v; v.scrollTop=0;}});
+  document.querySelectorAll('.menu a,.appbar a').forEach(a=>a.dataset.r===r?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  document.body.classList.toggle('autumn',r==='haeng');
+  const tc=document.querySelector('meta[name=theme-color]'); if(tc) tc.content=r==='haeng'?'#fdf6ea':'#04102e';
+  const tabs=view.dataset.tabs?JSON.parse(view.dataset.tabs):null;
+  seg.innerHTML=''; seg.hidden=!tabs;
+  crumb.innerHTML=tabs?'':`SNOWISE <span aria-hidden="true">›</span> <b>${view.dataset.title}</b>`;
+  if(tabs){
+    tabs.forEach(([k,label])=>{const b=document.createElement('button');b.setAttribute('role','tab');b.dataset.p=k;b.textContent=label;
+      b.onclick=()=>{setPane(view,k);view.scrollTop=0;requestAnimationFrame(drawRoads);};seg.appendChild(b);});
+    setPane(view, tabs.some(t=>t[0]===p0)?p0:tabs[0][0]);
+  }
+}
+addEventListener('hashchange',route);
+
+// 검색
+const INDEX=[
+  ['SNOWISE 안내','about',['소개','안내','이야기','스노웨이','와이즈','스노와이즈','snowise','포인트','기능','무엇','뭐','문의']],
+  ['이름 풀이','about',['이름','튜리','재맞고','sm-bridge','브릿지','멘토링','e-포트폴리오','용어']],
+  ['비교과프로그램 화면','guide/student',['비교과','프로그램','신청','마일리지','정원','대기']],
+  ['취창업 화면','guide/student',['취창업','채용','공고','educe','나임','잡플래닛','고용24','추천채용']],
+  ['홈 화면 안내','guide/student',['홈화면','대시보드','화면','메인','마일리지','역량','상담','챗봇','로그인하면','교수','교직원']],
+  ['이수확인서 발급','guide/student',['이수확인서','비교과','이력','이수','출력','발급','시작','로그인','접속']],
+  ['AI 코칭 받기','guide/student',['ai','코칭','자소서','자기소개서','이력서','포트폴리오','챗봇','리포트','진로','고민','otp']],
+  ['교수님용 · 상담 내역 입력','guide/prof',['교수','상담','지도교수','입력']],
+  ['교직원용 · 리더십그룹 회원관리','guide/staff',['교직원','리더십그룹','회원관리','직책','회장','관리자전환','탈퇴','신입','가입','신청 기간','커뮤니티','qna','상담']],
+  ['활동확인서 · 가입 신청 기간','guide/student',['활동확인서','동아리','학회','리더십그룹','가입','신청 기간']],
+  ['취창업 공고','guide/student',['취창업','공고','채용','공모','일자리']],
+  ['포트폴리오 작성','folio',['포트폴리오','포폴','자소서','자기소개서','이력서','공모전','섹션','연동']],
+  ['뉴스레터 취뽀송이','newsletter',['뉴스레터','취뽀송이','블로그','현장실습','금요일','하버드','vol']],
+  ['학생경력설계팀 유튜브','youtube',['유튜브','youtube','영상','채널','오픈','동영상']],
+  ['쇼츠 · 비교과 이력','youtube/history',['쇼츠','시연','비교과']],
+  ['쇼츠 · AI 코칭','youtube/ai',['쇼츠','시연','코칭']],
+  ['행성주 부스 포스터','haeng/poster',['포스터','공공인재','현장실습','학생경력설계팀','부스']],
+  ['행성주 굿즈','haeng/goods',['굿즈','키링','파우치','텀블러','경품']],
+  ['행성주 이벤트','haeng/event',['초성','퀴즈','데뷔','파우치','텀블러','역량검사','키워드','포트폴리오','공모전','스탬프','행성주','행복','성장주간','행사','부스','축제','굿즈','키링','경품','이벤트','순헌관','퀴즈']]
+];
+const q=document.getElementById('q'), sugg=document.getElementById('sugg');
+function find(v){v=v.trim().toLowerCase(); if(!v) return [];
+  return INDEX.filter(([t,,k])=>t.toLowerCase().includes(v)||k.some(w=>w.includes(v)||v.includes(w)));}
+q.addEventListener('input',()=>{
+  const r=find(q.value);
+  sugg.innerHTML=r.length?r.map(([t,h])=>`<li><a href="#${h}">${t}<small>바로가기</small></a></li>`).join(''):(q.value.trim()?'<li><a tabindex="-1">찾는 메뉴가 없어요<small>다른 단어로 검색해 보세요</small></a></li>':'');
+  sugg.hidden=!q.value.trim();
+});
+q.addEventListener('keydown',e=>{ if(e.key==='Enter'){const r=find(q.value); if(r[0]){location.hash=r[0][1]; close();}} if(e.key==='Escape') close(); });
+sugg.addEventListener('click',e=>{ if(e.target.closest('a[href]')) close(); });
+document.addEventListener('click',e=>{ if(!e.target.closest('.search')) sugg.hidden=true; });
+function close(){ sugg.hidden=true; q.value=''; q.blur(); }
+
+// 갤러리(공통)
+function initGal(gal){
+  const strip=gal.querySelector('.strip'); if(!strip||strip._init) return; strip._init=1;
+  const figs=[...strip.children], dots=[...gal.querySelectorAll('.dots button')];
+  const go=i=>{const t=figs[Math.max(0,Math.min(figs.length-1,i))]; strip.scrollTo({left:t.offsetLeft-strip.offsetLeft,behavior:reduce?'auto':'smooth'});};
+  const cur=()=>Math.round(strip.scrollLeft/(strip.scrollWidth/figs.length));
+  const prev=gal.querySelector('.prev'), next=gal.querySelector('.next');
+  if(prev) prev.onclick=()=>go(cur()-1);
+  if(next) next.onclick=()=>go(cur()+1);
+  dots.forEach((d,i)=>d.onclick=()=>go(i));
+  const mark=()=>{const c=cur(); dots.forEach((d,i)=>d.classList.toggle('on',i===c));};
+  strip.addEventListener('scroll',()=>{clearTimeout(strip._t); strip._t=setTimeout(mark,80);},{passive:true});
+  mark();
+  let down=false,x0=0,l0=0;
+  strip.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'){down=true;x0=e.clientX;l0=strip.scrollLeft;strip.style.cursor='grabbing';}});
+  addEventListener('pointerup',()=>{down=false;strip.style.cursor='';});
+  strip.addEventListener('pointermove',e=>{if(down){strip.scrollLeft=l0-(e.clientX-x0);}});
+}
+document.querySelectorAll('.gal').forEach(initGal);
+// 초성 퀴즈
+document.querySelectorAll('.qrow').forEach(r=>{
+  const inp=r.querySelector('input'), btn=r.querySelector('button'), res=r.querySelector('.res');
+  const check=()=>{
+    const v=inp.value.replace(/\s/g,'');
+    const ok=v && v===r.dataset.a.replace(/\s/g,'');
+    r.classList.toggle('ok',!!ok); r.classList.toggle('no',!!v&&!ok);
+    res.textContent = ok ? '정답! 🎉' : (v ? '다시 한 번!' : '');
+  };
+  btn.onclick=check;
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter') check();});
+});
+// 한입 하위 링크 전환
+document.querySelectorAll('.snav').forEach(b=>b.addEventListener('click',()=>{
+  const pane=b.closest('.pane');
+  pane.querySelectorAll('.snav').forEach(x=>x.classList.toggle('on',x===b));
+  pane.querySelectorAll('.sub-block').forEach(x=>x.classList.toggle('on',x.dataset.s===b.dataset.s));
+  requestAnimationFrame(drawRoads);
+}));
+// 한입 게시판 열릴 때 로드맵 다시 그리기
+document.querySelectorAll('.brow').forEach(d=>d.addEventListener('toggle',()=>{ if(d.open){ requestAnimationFrame(drawRoads); d.querySelectorAll('.gal').forEach(initGal);} }));
+// 홈 화면 전환
+document.querySelectorAll('.scb').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.scb').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('on',x.dataset.sc===b.dataset.sc));
+}));
+// 대시보드 핀
+function pickSpot(i){
+  document.querySelectorAll('.pin').forEach(p=>p.classList.toggle('on',p.dataset.i===i));
+  let li=null;
+  document.querySelectorAll('.pane.on .spots li').forEach(l=>{const on=l.dataset.i===i; l.classList.toggle('on',on); if(on) li=l;});
+  const co=document.getElementById('callout');
+  if(co && li){ co.hidden=false; document.getElementById('coNum').textContent=i;
+    document.getElementById('coTitle').textContent=li.querySelector('b').textContent.replace(/^\d+/,'');
+    document.getElementById('coDesc').textContent=li.querySelector('p').textContent; }
+}
+document.addEventListener('click',e=>{const t=e.target.closest('.pin,.spots li'); if(t) pickSpot(t.dataset.i);});
+// 이미지 크게 보기
+const lb=document.getElementById('lb');
+document.addEventListener('click',e=>{const z=e.target.closest('[data-zoom]'); if(z){lb.querySelector('img').src=z.dataset.zoom; lb.querySelector('img').alt=z.querySelector('img').alt; lb.showModal();}});
+lb.addEventListener('click',e=>{ if(e.target===lb||e.target.tagName==='BUTTON') lb.close(); });
+// 이름 풀이
+document.querySelectorAll('#words button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#words button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  document.getElementById('wordDesc').textContent=b.textContent+' · '+b.dataset.d;
+}));
+// 로드맵 길 그리기
+function drawRoads(){
+  document.querySelectorAll('.pane.on .road').forEach(road=>{
+    if(road.closest('details') && !road.closest('details').open) return;
+    const svg=road.querySelector('.path'), R=road.getBoundingClientRect();
+    const pts=[...road.querySelectorAll('.dot')].map(d=>{const b=d.getBoundingClientRect();return [b.left+b.width/2-R.left,b.top+b.height/2-R.top]});
+    if(pts.length<2) return;
+    let d=`M${pts[0][0]},${pts[0][1]}`;
+    for(let i=1;i<pts.length;i++){
+      const [x0,y0]=pts[i-1],[x1,y1]=pts[i];
+      if(Math.abs(y1-y0)<5) d+=` L${x1},${y1}`;
+      else { const bulge=Math.max(60,(y1-y0)/1.2); d+=` C${x0+bulge},${y0} ${x1+bulge},${y1} ${x1},${y1}`; }
+    }
+    svg.innerHTML=`<path d="${d}"/>`;
+  });
+}
+addEventListener('resize',drawRoads);
+
+// 영상 챕터 이동
+function seek(k,t){
+  const target='youtube/'+k;
+  if(location.hash.slice(1)!==target) location.hash=target;
+  setTimeout(()=>{const v=document.getElementById('vid-'+k); if(!v) return; v.currentTime=t; v.play().catch(()=>{});},150);
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-seek]'); if(b) seek(b.dataset.seek,+b.dataset.t);});
+document.querySelectorAll('video').forEach(v=>{
+  const k=v.id.slice(4), btns=[...document.querySelectorAll(`.chap [data-seek="${k}"]`)];
+  const hl=()=>{let cur=null; btns.forEach(b=>{ if(v.currentTime>=+b.dataset.t-.2) cur=b; }); btns.forEach(b=>b.classList.toggle('now',b===cur));};
+  v.addEventListener('timeupdate',hl); v.addEventListener('seeked',hl);
+});
+route();
+// 오프라인 캐시 + 홈 화면 설치용 서비스워커 (지원 안 되는 환경에서는 조용히 건너뜀)
+if('serviceWorker' in navigator && location.protocol==='https:'){
+  addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});
+}
+</script>
+</body>
+</html>

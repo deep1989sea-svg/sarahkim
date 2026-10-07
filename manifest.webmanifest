@@ -1,0 +1,17 @@
+{
+  "name": "SNOWISE 안내 | 숙명여대 학생성장 통합시스템",
+  "short_name": "SNOWISE",
+  "description": "숙명여대 학생성장 통합시스템 SNOWISE 안내 — 한입 사용법, 포트폴리오 작성, 행복성장주간, 뉴스레터, 유튜브",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#04102e",
+  "theme_color": "#04102e",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
