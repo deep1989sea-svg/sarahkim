@@ -777,6 +777,60 @@ body.autumn .appbar{background:rgba(255,250,242,.97);box-shadow:0 -1px 0 rgba(15
 body.autumn .appbar a{color:#a88a72}
 body.autumn .appbar a[aria-current="page"]{color:#e0621f}
 body.autumn .panel,body.autumn .side{transition:background .4s}
+/* SNOWISE 로드맵 */
+.rm-wrap{container:rm/inline-size;background:#cfe2fa;border-radius:22px;padding:24px 18px;color:#14246b}
+.rm-scene{position:relative;height:1800px}
+.rm-road{position:absolute;inset:0;width:100%;height:100%}
+.rm-road path{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.rm-deco,.rm-pill,.rm-st,.rm-ch,.rm-turi{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%)}
+.rm-pill{padding:3px 14px;border-radius:999px;background:#14246b;color:#fff;font-size:13px;font-weight:700;white-space:nowrap}
+.rm-pill.end{background:#ffc83d;color:#14246b}
+.rm-st{width:112px;height:112px;border-radius:50%;border:8px solid var(--c);background:#fff;display:grid;place-items:center;font-size:24px;font-weight:700;color:#14246b}
+.rm-card{position:absolute;top:var(--y);transform:translateY(-50%);background:#fff;border-radius:20px;padding:20px 22px;box-shadow:0 6px 20px rgba(27,63,160,.12);color:#1f2740}
+.rm-card.l{left:27%;right:1%}
+.rm-card.r{left:1%;right:27%}
+.rm-card h3{font-size:20px;color:#14246b}
+.rm-card .why{margin:2px 0 12px;font-size:14px;color:#3c4a73}
+.rm-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
+.rm-list a{display:flex;align-items:center;gap:8px;min-height:44px;padding:4px 12px;border:1px solid #c3d6f2;border-radius:12px;background:#f7faff;font-size:15px;line-height:1.35;color:#1f2740;text-decoration:none;transition:background .2s}
+.rm-list a:hover{background:#e6f0fd}
+.rm-list a span{flex:1;min-width:0}
+.rm-list svg{width:16px;height:16px;flex:none;fill:none;stroke:#1b3fa0;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rm-gap{display:contents}
+.rm-ch{height:var(--h);width:auto}
+.rm-turi{z-index:2;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;padding:0;cursor:pointer}
+.rm-turi b{padding:2px 10px;border-radius:999px;background:#ffc83d;color:#14246b;font-size:12px;font-weight:700;white-space:nowrap}
+.rm-turi img{height:104px;width:auto;display:block;transition:transform .25s}
+.rm-turi:hover img{transform:translateY(-4px) rotate(-4deg)}
+.rm-note{margin:14px 4px 0;font-size:13px;color:var(--sub);text-align:center}
+@container rm (max-width:760px){
+  .rm-scene{height:auto;display:flex;flex-direction:column;gap:12px}
+  .rm-scene::before{content:"";position:absolute;left:50%;top:12px;bottom:12px;border-left:4px dotted #fff;margin-left:-2px}
+  .rm-road,.rm-deco{display:none}
+  .rm-pill,.rm-st,.rm-card,.rm-ch,.rm-turi{position:relative;left:auto;right:auto;top:auto;transform:none;z-index:1}
+  .rm-card.l,.rm-card.r{left:auto;right:auto}
+  .rm-pill,.rm-st{align-self:center}
+  .rm-st{width:84px;height:84px;border-width:6px;font-size:19px;margin-bottom:-4px}
+  .rm-card{padding:18px 16px}
+  .rm-gap{display:flex;justify-content:center;align-items:flex-end;gap:16px;padding:4px 0}
+  .rm-ch{height:72px}
+  .rm-turi img{height:72px}
+}
+@container rm (max-width:440px){.rm-list{grid-template-columns:1fr}}
+#rmTuri{border:0;padding:0;background:transparent;max-width:min(440px,92vw);overflow:visible}
+#rmTuri::backdrop{background:rgba(2,8,24,.7)}
+#rmTuri .in{position:relative;background:#f6e6ff;border:3px solid #fff;border-radius:24px;padding:24px;color:#14267f;display:grid;gap:12px}
+#rmTuri .x{position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#14267f;font-weight:700;cursor:pointer}
+#rmTuri .hd{display:flex;align-items:center;gap:16px;padding-right:44px}
+#rmTuri .hd img{width:104px;height:auto;flex:none}
+#rmTuri .bub{position:relative;display:inline-block;padding:3px 12px;background:#fff;border:2px solid #ee8ccb;border-radius:10px;font-size:15px;font-weight:700;color:#c2308a}
+#rmTuri .bub::after{content:"";position:absolute;left:22px;bottom:-7px;width:10px;height:10px;background:#fff;border-right:2px solid #ee8ccb;border-bottom:2px solid #ee8ccb;transform:rotate(45deg)}
+#rmTuri .nm{display:block;margin-top:10px;font-size:44px;font-weight:700;line-height:1.05}
+#rmTuri h3{font-size:20px}
+#rmTuri p{margin:0;font-size:15px;line-height:1.75}
+#rmTuri .tags{display:flex;flex-wrap:wrap;gap:8px}
+#rmTuri .tags span{padding:4px 12px;border-radius:999px;background:#fff;font-size:13px;font-weight:700;color:#14267f}
+
 /* 앱(모바일) 하단 탭 */
 .appbar{display:none}
 
@@ -855,7 +909,7 @@ body.autumn .panel,body.autumn .side{transition:background .4s}
   .phonef{justify-self:center}
   .phonef video{height:70vh;width:calc(70vh * 9 / 16)}
   .reels{grid-template-columns:repeat(2,1fr)}
-  .appbar{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:20;grid-template-columns:repeat(7,1fr);
+  .appbar{display:grid;position:fixed;left:0;right:0;bottom:0;z-index:20;grid-template-columns:repeat(8,1fr);
     background:rgba(4,16,46,.96);backdrop-filter:blur(10px);box-shadow:0 -1px 0 var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
   .appbar a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--dim);text-decoration:none;padding:4px 0}
   .appbar svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
@@ -883,6 +937,7 @@ body.autumn .panel,body.autumn .side{transition:background .4s}
       <ul class="menu">
         <li><a href="#home" data-r="home"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>홈</a></li>
         <li><a href="#about" data-r="about"><svg viewBox="0 0 24 24"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"/><path d="M12 8v8M8.5 10l7 4M15.5 10l-7 4"/></svg>SNOWISE 소개</a></li>
+        <li><a href="#roadmap" data-r="roadmap"><svg viewBox="0 0 24 24"><path d="M7 20h6a3.5 3.5 0 000-7h-2a3.5 3.5 0 010-7h6"/><circle cx="5" cy="20" r="1.4"/><circle cx="19" cy="6" r="1.4"/></svg>SNOWISE 로드맵</a></li>
         <li><a href="#haeng" data-r="haeng"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/></svg>2026-2 숙명행복성장주간</a></li>
         <li><a href="#guide" data-r="guide"><svg viewBox="0 0 24 24"><path d="M4 5h11l5 5v9H4z"/><path d="M8 11h8M8 15h5"/></svg>한입-SNOWISE</a></li>
         <li><a href="#folio" data-r="folio"><svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 13h8M8 17h5"/></svg>포트폴리오 작성</a></li>
@@ -959,6 +1014,108 @@ body.autumn .panel,body.autumn .side{transition:background .4s}
           </div>
         </article>
 </section>
+
+      <!-- SNOWISE 로드맵 -->
+      <section class="view" id="v-roadmap" data-title="SNOWISE 로드맵">
+        <header class="pg-h"><small>ROADMAP</small><h2>SNOWISE 로드맵</h2><p class="pg-sub">학년마다 이것만 해두면 돼. 한 번 해둔 건 눈처럼 차곡차곡 쌓이거든.</p></header>
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+          <symbol id="rm-tree" viewBox="0 0 56 72"><rect x="25" y="58" width="6" height="12" rx="2" fill="#5577b8"/><path d="M28 22L52 60H4Z" fill="#6c9bdd"/><path d="M28 4L46 36H10Z" fill="#7faae6"/><path d="M28 4l7.5 13.5q-3.5-3-7.5 0-4-3-7.5 0Z" fill="#fff"/><path d="M16 41q6-4 12 0 6-4 12 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/></symbol>
+          <symbol id="rm-cloud" viewBox="0 0 96 44"><circle cx="30" cy="26" r="14" fill="#fff"/><circle cx="50" cy="18" r="16" fill="#fff"/><circle cx="68" cy="28" r="12" fill="#fff"/><rect x="18" y="26" width="62" height="14" rx="7" fill="#fff"/></symbol>
+          <symbol id="rm-flake" viewBox="0 0 24 24"><path d="M12 2v20M3.34 7l17.32 10M3.34 17L20.66 7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></symbol>
+          <symbol id="rm-go" viewBox="0 0 16 16"><path d="M6 3.5l4.5 4.5L6 12.5"/></symbol>
+        </defs></svg>
+
+        <div class="rm-wrap"><div class="rm-scene">
+          <svg class="rm-road" viewBox="0 0 100 1800" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M12 46V150C12 400 88 400 88 650C88 900 12 900 12 1150C12 1400 88 1400 88 1650V1730" stroke="#a9c8f2" stroke-width="64"/>
+            <path d="M12 46V150C12 400 88 400 88 650C88 900 12 900 12 1150C12 1400 88 1400 88 1650V1730" stroke="#fff" stroke-width="54"/>
+            <path d="M12 46V150C12 400 88 400 88 650C88 900 12 900 12 1150C12 1400 88 1400 88 1650V1730" stroke="#9dbdf0" stroke-width="4" stroke-dasharray="2 16"/>
+          </svg>
+          <svg class="rm-deco" style="--x:61%;--y:312px;width:96px;height:44px" aria-hidden="true"><use href="#rm-cloud"/></svg>
+          <svg class="rm-deco" style="--x:94%;--y:380px;width:56px;height:72px" aria-hidden="true"><use href="#rm-tree"/></svg>
+          <svg class="rm-deco" style="--x:89%;--y:402px;width:40px;height:52px" aria-hidden="true"><use href="#rm-tree"/></svg>
+          <svg class="rm-deco" style="--x:64%;--y:372px;width:26px;height:26px" aria-hidden="true"><use href="#rm-flake"/></svg>
+          <svg class="rm-deco" style="--x:9%;--y:462px;width:56px;height:72px" aria-hidden="true"><use href="#rm-tree"/></svg>
+          <svg class="rm-deco" style="--x:31%;--y:440px;width:30px;height:30px" aria-hidden="true"><use href="#rm-flake"/></svg>
+          <svg class="rm-deco" style="--x:35%;--y:492px;width:18px;height:18px" aria-hidden="true"><use href="#rm-flake"/></svg>
+          <svg class="rm-deco" style="--x:40%;--y:802px;width:96px;height:44px" aria-hidden="true"><use href="#rm-cloud"/></svg>
+          <svg class="rm-deco" style="--x:8%;--y:890px;width:56px;height:72px" aria-hidden="true"><use href="#rm-tree"/></svg>
+          <svg class="rm-deco" style="--x:36%;--y:852px;width:26px;height:26px" aria-hidden="true"><use href="#rm-flake"/></svg>
+          <svg class="rm-deco" style="--x:95%;--y:958px;width:56px;height:72px" aria-hidden="true"><use href="#rm-tree"/></svg>
+          <svg class="rm-deco" style="--x:68%;--y:990px;width:30px;height:30px" aria-hidden="true"><use href="#rm-flake"/></svg>
+          <svg class="rm-deco" style="--x:60%;--y:1310px;width:96px;height:44px" aria-hidden="true"><use href="#rm-cloud"/></svg>
+          <svg class="rm-deco" style="--x:95%;--y:1388px;width:56px;height:72px" aria-hidden="true"><use href="#rm-tree"/></svg>
+          <svg class="rm-deco" style="--x:64%;--y:1372px;width:26px;height:26px" aria-hidden="true"><use href="#rm-flake"/></svg>
+          <svg class="rm-deco" style="--x:10%;--y:1462px;width:56px;height:72px" aria-hidden="true"><use href="#rm-tree"/></svg>
+          <svg class="rm-deco" style="--x:22%;--y:1452px;width:30px;height:30px" aria-hidden="true"><use href="#rm-flake"/></svg>
+
+          <span class="rm-pill" style="--x:12%;--y:14px">입학</span>
+
+          <div class="rm-st" style="--x:12%;--y:150px;--c:#7db3f5">1학년</div>
+          <article class="rm-card l" style="--y:150px">
+            <h3>1학년 · 나를 알기</h3>
+            <p class="why">내가 어떤 스타일인지부터 가볍게 확인해.</p>
+            <ul class="rm-list">
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>역량검사 1분 체크</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>지도교수 상담 받기</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>비교과 처음 참여하기</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>튜리에게 물어보기</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+            </ul>
+          </article>
+          <div class="rm-gap">
+            <img class="rm-ch" style="--x:50%;--y:392px;--h:112px" loading="lazy" decoding="async" src="assets/img/rm-nunsong.webp" alt="눈송이">
+            <img class="rm-ch" style="--x:78%;--y:384px;--h:112px" loading="lazy" decoding="async" src="assets/img/rm-kkotsong.webp" alt="꽃송이">
+            <img class="rm-ch" style="--x:20%;--y:462px;--h:100px" loading="lazy" decoding="async" src="assets/img/rm-roro.webp" alt="로로">
+          </div>
+
+          <div class="rm-st" style="--x:88%;--y:650px;--c:#4c8df6">2학년</div>
+          <article class="rm-card r" style="--y:650px">
+            <h3>2학년 · 방향 잡기</h3>
+            <p class="why">쌓인 기록으로 갈 길을 좁혀 봐.</p>
+            <ul class="rm-list">
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>AI 추천 로드맵 확인</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>진로상담 신청</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>비교과 꾸준히 쌓기</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>재맞고 빌드업 참여</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+            </ul>
+          </article>
+          <div class="rm-gap">
+            <img class="rm-ch" style="--x:24%;--y:868px;--h:108px" loading="lazy" decoding="async" src="assets/img/rm-nundeong.webp" alt="눈덩이">
+            <button class="rm-turi" style="--x:50%;--y:872px" data-rm-turi aria-label="튜리 소개 보기"><b>나를 눌러봐</b><img loading="lazy" decoding="async" src="assets/img/rm-turi.webp" alt="눈길 위를 나는 튜리"></button>
+            <img class="rm-ch" style="--x:80%;--y:962px;--h:84px" loading="lazy" decoding="async" src="assets/img/rm-nungyeol.webp" alt="눈결이">
+          </div>
+
+          <div class="rm-st" style="--x:12%;--y:1150px;--c:#1b3fa0">3학년</div>
+          <article class="rm-card l" style="--y:1150px">
+            <h3>3학년 · 실전 붙기</h3>
+            <p class="why">밖에 나가서 부딪혀 보고, 한 번 정리해 둬.</p>
+            <ul class="rm-list">
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>SM-bridge 선배 멘토링</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>현장실습·인턴 다녀오기</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>재맞고 점프업 참여</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="#folio"><span>e-포트폴리오 첫 정리</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+            </ul>
+          </article>
+          <div class="rm-gap">
+            <img class="rm-ch" style="--x:80%;--y:1372px;--h:100px" loading="lazy" decoding="async" src="assets/img/rm-nunkkot.webp" alt="눈꽃송이">
+          </div>
+
+          <div class="rm-st" style="--x:88%;--y:1650px;--c:#14246b">4학년</div>
+          <article class="rm-card r" style="--y:1650px">
+            <h3>4학년 · 지원하기</h3>
+            <p class="why">정리해 둔 걸 꺼내서 지원서로 만들어.</p>
+            <ul class="rm-list">
+              <li><a href="#guide/student"><span>AI 코칭으로 자소서·이력서</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="#folio"><span>포트폴리오 완성</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>컨설턴트 상담 (자소서·면접)</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+              <li><a href="https://snowise.sookmyung.ac.kr" target="_blank" rel="noopener"><span>취업박람회 참여</span><svg viewBox="0 0 16 16"><use href="#rm-go"/></svg></a></li>
+            </ul>
+          </article>
+
+          <span class="rm-pill end" style="--x:88%;--y:1772px">졸업 · 취업</span>
+        </div></div>
+        <p class="rm-note">항목을 누르면 SNOWISE 로그인이나 사용법 안내로 이동해요.</p>
+      </section>
 
       <!-- 한입 SNOWISE -->
       <section class="view" id="v-guide" data-title="한입-SNOWISE" data-tabs='[["student","학생용"],["prof","교수님용"],["staff","교직원용"]]'>
@@ -1427,6 +1584,7 @@ body.autumn .panel,body.autumn .side{transition:background .4s}
         <a href="#home" data-r="home"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>홈</a>
         
         <a href="#about" data-r="about"><svg viewBox="0 0 24 24"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"/><path d="M12 8v8M8.5 10l7 4M15.5 10l-7 4"/></svg>소개</a>
+        <a href="#roadmap" data-r="roadmap"><svg viewBox="0 0 24 24"><path d="M7 20h6a3.5 3.5 0 000-7h-2a3.5 3.5 0 010-7h6"/><circle cx="5" cy="20" r="1.4"/><circle cx="19" cy="6" r="1.4"/></svg>로드맵</a>
         <a href="#haeng" data-r="haeng"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13.5l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/></svg>행성주</a>
         <a href="#guide" data-r="guide"><svg viewBox="0 0 24 24"><path d="M4 5h11l5 5v9H4z"/><path d="M8 11h8M8 15h5"/></svg>한입-SNOWISE</a>
         <a href="#folio" data-r="folio"><svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 13h8M8 17h5"/></svg>포폴</a>
@@ -1434,6 +1592,14 @@ body.autumn .panel,body.autumn .side{transition:background .4s}
         <a href="#youtube" data-r="youtube"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9.2l5 2.8-5 2.8z"/></svg>유튜브</a>
         
       </nav>
+
+<dialog id="rmTuri" aria-label="튜리 소개"><div class="in">
+  <button class="x" aria-label="닫기">✕</button>
+  <div class="hd"><img src="assets/img/rm-turi-card.webp" alt="튜리 일러스트"><div><span class="bub">작고 귀여워! 스노우볼 로봇</span><b class="nm">튜리</b></div></div>
+  <h3>인공지능 스노우볼 로봇</h3>
+  <p>스노우볼처럼 맑고 깨끗하면서도<br>미래 산업시대의 선도자가 될 친구<br>우주여행이 취미이며, 제2창학캠퍼스에서<br>실험하는 모습이 자주 목격됨<br>완충 시 활동 시간은 1,906시간이다.</p>
+  <div class="tags"><span>눈송프렌즈</span><span>SNOWISE AI 챗봇</span></div>
+</div></dialog>
 
 <dialog id="lb" aria-label="이미지 크게 보기"><img loading="lazy" decoding="async" alt=""><button aria-label="닫기">✕</button></dialog>
 
@@ -1456,7 +1622,7 @@ if(!reduce){
     e.style.cssText=`left:${Math.random()*100}%;width:${z}px;height:${z}px;background:${cols[i%5]};opacity:${.35+Math.random()*.4};animation-duration:${12+Math.random()*12}s;animation-delay:${-Math.random()*24}s`;leaves.appendChild(e);}
 }
 // 라우팅
-const ROUTES=['home','about','guide','folio','newsletter','youtube','haeng'];
+const ROUTES=['home','about','roadmap','guide','folio','newsletter','youtube','haeng'];
 const seg=document.getElementById('seg'), crumb=document.getElementById('crumb');
 function setPane(view,p){
   view.querySelectorAll('.pane').forEach(x=>x.classList.toggle('on',x.dataset.p===p));
@@ -1487,6 +1653,7 @@ addEventListener('hashchange',route);
 const INDEX=[
   ['SNOWISE 안내','about',['소개','안내','이야기','스노웨이','와이즈','스노와이즈','snowise','포인트','기능','무엇','뭐','문의']],
   ['이름 풀이','about',['이름','튜리','재맞고','sm-bridge','브릿지','멘토링','e-포트폴리오','용어']],
+  ['SNOWISE 로드맵','roadmap',['로드맵','학년','1학년','2학년','3학년','4학년','신입생','뭐부터','눈송프렌즈','눈송이','꽃송이','로로','눈덩이','눈결이','눈꽃송이','멘토링','현장실습','인턴','박람회','역량검사']],
   ['비교과프로그램 화면','guide/student',['비교과','프로그램','신청','마일리지','정원','대기']],
   ['취창업 화면','guide/student',['취창업','채용','공고','educe','나임','잡플래닛','고용24','추천채용']],
   ['홈 화면 안내','guide/student',['홈화면','대시보드','화면','메인','마일리지','역량','상담','챗봇','로그인하면','교수','교직원']],
@@ -1578,6 +1745,10 @@ document.addEventListener('click',e=>{const t=e.target.closest('.pin,.spots li')
 const lb=document.getElementById('lb');
 document.addEventListener('click',e=>{const z=e.target.closest('[data-zoom]'); if(z){lb.querySelector('img').src=z.dataset.zoom; lb.querySelector('img').alt=z.querySelector('img').alt; lb.showModal();}});
 lb.addEventListener('click',e=>{ if(e.target===lb||e.target.tagName==='BUTTON') lb.close(); });
+// 로드맵: 튜리 소개 카드
+const rmT=document.getElementById('rmTuri');
+document.addEventListener('click',e=>{ if(e.target.closest('[data-rm-turi]')) rmT.showModal(); });
+rmT.addEventListener('click',e=>{ if(e.target===rmT||e.target.closest('.x')) rmT.close(); });
 // 이름 풀이
 document.querySelectorAll('#words button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('#words button').forEach(x=>x.setAttribute('aria-pressed',x===b));

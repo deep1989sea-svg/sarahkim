@@ -1,6 +1,6 @@
 // SNOWISE 안내 — 오프라인 캐시용 서비스워커
 // 새 버전을 올릴 때는 아래 VERSION 숫자만 올리면 이전 캐시가 정리됩니다.
-const VERSION = 'snowise-v1';
+const VERSION = 'snowise-v2';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest'];
 
 self.addEventListener('install', e => {
